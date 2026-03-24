@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM — дашборд HR</title>
+  <link rel="stylesheet" href="crm-proto.css" />
+</head>
+<body class="page-dashboard">
+  <header class="topbar">
+    <div class="topbar__brand">CRM</div>
+    <div class="topbar__user">
+      <span class="topbar__name">Алина</span>
+    </div>
+    <a class="link-exit" href="index.html">Выйти</a>
+  </header>
+
+  <nav class="tabs tabs--hr" role="tablist" aria-label="Разделы HR">
+    <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" data-tab="dashboard">Дашборд</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="messages">Сообщения</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="vacations">Отпуска</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="birthdays">Дни рождения</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="rating">Рейтинг</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="news-events">Новости и корпоративы</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="access">Доступы</button>
+  </nav>
+
+  <main class="panel">
+    <section class="tab-panel is-visible" id="panel-dashboard" role="tabpanel">
+      <h2>Дашборд</h2>
+      <div class="dashboard-grid">
+        <article class="dash-card">
+          <h3 class="dash-card__label">Имя</h3>
+          <p class="dash-card__value">Алина</p>
+        </article>
+        <article class="dash-card">
+          <h3 class="dash-card__label">Заявки на отпуск</h3>
+          <p class="dash-card__value">3 на согласовании</p>
+        </article>
+        <article class="dash-card dash-card--wide">
+          <h3 class="dash-card__label">Ближайшие дни рождения</h3>
+          <ul class="list-demo">
+            <li>12 мар — Алексей Смирнов</li>
+            <li>18 мар — Мария Волкова</li>
+            <li>22 мар — Дмитрий Орлов</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <section class="tab-panel" id="panel-messages" role="tabpanel" hidden>
+      <h2>Сообщения</h2>
+      <p class="muted">Внутренняя переписка и уведомления (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-vacations" role="tabpanel" hidden>
+      <h2>Отпуска</h2>
+      <p class="muted">Заявки, график, остатки дней (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-birthdays" role="tabpanel" hidden>
+      <h2>Дни рождения</h2>
+      <p class="muted">Календарь и напоминания по сотрудникам (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-rating" role="tabpanel" hidden>
+      <h2>Рейтинг</h2>
+      <p class="muted">Рейтинги и опросы по персоналу (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-news-events" role="tabpanel" hidden>
+      <h2>Новости и корпоративы</h2>
+      <p class="muted">Новости компании, мероприятия, фотоотчёты (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-access" role="tabpanel" hidden>
+      <h2>Доступы</h2>
+      <p class="muted">Учётные записи, роли в системах, заявки на доступ (прототип).</p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var map = {
+        dashboard: 'panel-dashboard',
+        messages: 'panel-messages',
+        vacations: 'panel-vacations',
+        birthdays: 'panel-birthdays',
+        rating: 'panel-rating',
+        'news-events': 'panel-news-events',
+        access: 'panel-access'
+      };
+
+      var buttons = document.querySelectorAll('.tabs__btn');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-tab');
+          buttons.forEach(function (b) {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+
+          Object.keys(map).forEach(function (k) {
+            var el = document.getElementById(map[k]);
+            if (!el) return;
+            if (k === key) {
+              el.hidden = false;
+              el.classList.add('is-visible');
+            } else {
+              el.hidden = true;
+              el.classList.remove('is-visible');
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

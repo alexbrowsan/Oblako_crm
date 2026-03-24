@@ -16,6 +16,7 @@
         <select name="role" id="role" class="input" required>
           <option value="seller" selected>Продавец</option>
           <option value="manager">Управляющий</option>
+          <option value="hr">HR</option>
         </select>
       </label>
       <label class="field">
@@ -38,6 +39,8 @@
       sessionStorage.setItem('crm_role', role);
       if (role === 'manager') {
         window.location.href = 'manager-dashboard.html';
+      } else if (role === 'hr') {
+        window.location.href = 'hr-dashboard.html';
       } else {
         window.location.href = 'seller-dashboard.html';
       }
