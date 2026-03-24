@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM — дашборд продавца</title>
+  <link rel="stylesheet" href="crm-proto.css" />
+</head>
+<body class="page-dashboard">
+  <header class="topbar">
+    <div class="topbar__brand">CRM</div>
+    <div class="topbar__user">
+      <span class="topbar__name" id="sellerName">Иван Петров</span>
+    </div>
+    <a class="link-exit" href="index.html">Выйти</a>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Разделы продавца">
+    <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" data-tab="dashboard">Дашборд</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="tasks">Задачи</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="rating">Рейтинг</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="salary">Зарплата</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="charts">Графики</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="kb">База знаний</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="messages">Сообщения</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="support">Тех. поддержка</button>
+  </nav>
+
+  <main class="panel">
+    <section class="tab-panel is-visible" id="panel-dashboard" role="tabpanel">
+      <h2>Дашборд</h2>
+      <div class="dashboard-grid">
+        <article class="dash-card">
+          <h3 class="dash-card__label">Имя</h3>
+          <p class="dash-card__value" id="dashboardName">Иван Петров</p>
+        </article>
+        <article class="dash-card">
+          <h3 class="dash-card__label">Рейтинг</h3>
+          <p class="dash-card__value dash-card__value--rating" id="dashboardRating">★ 4.8</p>
+        </article>
+        <article class="dash-card dash-card--span-2">
+          <h3 class="dash-card__label">Магазин</h3>
+          <p class="dash-card__value">Апатиты, Ферсмана 28</p>
+        </article>
+        <article class="dash-card dash-card--span-2">
+          <h3 class="dash-card__label">Статус по задачам</h3>
+          <p class="task-status-done">Все задачи выполнены</p>
+        </article>
+      </div>
+    </section>
+    <section class="tab-panel" id="panel-tasks" role="tabpanel" hidden>
+      <h2>Задачи</h2>
+      <p class="muted">Список задач от управляющего</p>
+      <ul class="list-demo">
+        <li>Позвонить клиенту по сделке #1042</li>
+        <li>Обновить коммерческое предложение</li>
+      </ul>
+    </section>
+    <section class="tab-panel" id="panel-rating" role="tabpanel" hidden>
+      <h2>Рейтинг</h2>
+      <p class="muted">Ваша позиция среди продавцов за месяц.</p>
+      <p id="ratingPlace"></p>
+      <ol class="rating-list" id="ratingList" start="1"></ol>
+    </section>
+    <section class="tab-panel" id="panel-salary" role="tabpanel" hidden>
+      <h2>Зарплата</h2>
+      <p class="muted">Начисления и выплаты.</p>
+      <p>Текущий период: <strong>оклад + бонусы</strong> (данные появятся в CRM).</p>
+    </section>
+    <section class="tab-panel" id="panel-charts" role="tabpanel" hidden>
+      <h2>Графики</h2>
+      <p class="muted">Поставки, ревизия, уборка — здесь будут графики (макет).</p>
+      <div class="chart-placeholder">Графики (заглушка)</div>
+    </section>
+    <section class="tab-panel" id="panel-kb" role="tabpanel" hidden>
+      <h2>База знаний</h2>
+      <p class="muted">Инструкции, скрипты, ответы на частые вопросы.</p>
+    </section>
+    <section class="tab-panel" id="panel-messages" role="tabpanel" hidden>
+      <h2>Сообщения</h2>
+      <p class="muted">Чаты с коллегами и клиентами.</p>
+    </section>
+    <section class="tab-panel" id="panel-support" role="tabpanel" hidden>
+      <h2>Тех. поддержка</h2>
+      <p class="muted">Создать тикет или написать в поддержку.</p>
+      <button type="button" class="btn btn--secondary">Новый тикет</button>
+    </section>
+  </main>
+
+  <script src="crm-rating.js"></script>
+  <script>
+    (function () {
+      function buildRatingBoard() {
+        var people = window.CRM.getRatingPeople();
+
+        var placeEl = document.getElementById('ratingPlace');
+        var listEl = document.getElementById('ratingList');
+        if (!placeEl || !listEl) return;
+
+        var myPlace = 0;
+        for (var i = 0; i < people.length; i++) {
+          if (people[i].name === 'Иван Петров') {
+            myPlace = i + 1;
+            break;
+          }
+        }
+        placeEl.innerHTML = '<strong>' + myPlace + ' место</strong> из 24';
+
+        listEl.innerHTML = '';
+        for (var j = 0; j < people.length; j++) {
+          var p = people[j];
+          var li = document.createElement('li');
+          li.className = 'rating-list__row' + (p.name === 'Иван Петров' ? ' rating-list__row--me' : '');
+          li.innerHTML =
+            '<span class="rating-list__name">' +
+            (j + 1) +
+            '. ' +
+            p.name +
+            '</span><span class="rating-list__score">★ ' +
+            p.rating.toFixed(1) +
+            '</span>';
+          listEl.appendChild(li);
+        }
+      }
+
+      buildRatingBoard();
+
+      var map = {
+        dashboard: 'panel-dashboard',
+        tasks: 'panel-tasks',
+        rating: 'panel-rating',
+        salary: 'panel-salary',
+        charts: 'panel-charts',
+        kb: 'panel-kb',
+        messages: 'panel-messages',
+        support: 'panel-support'
+      };
+
+      var buttons = document.querySelectorAll('.tabs__btn');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-tab');
+          buttons.forEach(function (b) {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+
+          Object.keys(map).forEach(function (k) {
+            var el = document.getElementById(map[k]);
+            if (!el) return;
+            if (k === key) {
+              el.hidden = false;
+              el.classList.add('is-visible');
+            } else {
+              el.hidden = true;
+              el.classList.remove('is-visible');
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

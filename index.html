@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM — вход</title>
+  <link rel="stylesheet" href="crm-proto.css" />
+</head>
+<body class="page-login">
+  <main class="card">
+    <h1 class="card__title">CRM</h1>
+    <p class="card__subtitle">Вход в систему</p>
+    <form id="loginForm" class="form" novalidate>
+      <label class="field">
+        <span class="field__label">Роль</span>
+        <select name="role" id="role" class="input" required>
+          <option value="seller" selected>Продавец</option>
+          <option value="manager">Управляющий</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="field__label">Логин</span>
+        <input type="text" name="login" id="login" class="input" placeholder="ivan.petrov" autocomplete="username" required />
+      </label>
+      <label class="field">
+        <span class="field__label">Пароль</span>
+        <input type="password" name="password" id="password" class="input" placeholder="••••••••" autocomplete="current-password" required />
+      </label>
+      <button type="submit" class="btn btn--primary">Войти</button>
+    </form>
+  </main>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var login = document.getElementById('login').value.trim();
+      var role = document.getElementById('role').value;
+      sessionStorage.setItem('crm_login', login);
+      sessionStorage.setItem('crm_role', role);
+      if (role === 'manager') {
+        window.location.href = 'manager-dashboard.html';
+      } else {
+        window.location.href = 'seller-dashboard.html';
+      }
+    });
+  </script>
+</body>
+</html>
