@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM — дашборд управляющего</title>
+  <link rel="stylesheet" href="crm-proto.css" />
+</head>
+<body class="page-dashboard">
+  <header class="topbar">
+    <div class="topbar__brand">CRM</div>
+    <div class="topbar__user">
+      <span class="topbar__name" id="managerName">Сергей Орлов</span>
+    </div>
+    <a class="link-exit" href="index.html">Выйти</a>
+  </header>
+
+  <nav class="tabs tabs--manager" role="tablist" aria-label="Разделы управляющего">
+    <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" data-tab="dashboard">Дашборд</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="nps">НПС</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="metrics-tt">Метрики по ТТ</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="stock">Остатки товара</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="plan-fact">План-факт</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="task-manager">Таск-менеджер</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="dept-rating">Рейтинг отдела</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="planner">Планер</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="new-clients">Новые клиенты</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="seller-reports">Отчёты продавцов</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="charts">Графики</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="vacations">Отпуска</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="seller-rating">Рейтинг продавцов</button>
+  </nav>
+
+  <main class="panel">
+    <section class="tab-panel is-visible" id="panel-dashboard" role="tabpanel">
+      <h2>Дашборд</h2>
+      <div class="dashboard-grid">
+        <article class="dash-card">
+          <h3 class="dash-card__label">Имя</h3>
+          <p class="dash-card__value" id="dashboardName">Сергей Орлов</p>
+        </article>
+        <article class="dash-card">
+          <h3 class="dash-card__label">Рейтинг команды</h3>
+          <p class="dash-card__value dash-card__value--rating" id="dashboardRating">★ 4.6</p>
+        </article>
+        <article class="dash-card dash-card--wide">
+          <h3 class="dash-card__label">Статус по задачам отдела</h3>
+          <ul class="task-status">
+            <li><span class="task-status__name">В работе у продавцов</span><span class="task-status__num">18</span></li>
+            <li><span class="task-status__name">Просрочено</span><span class="task-status__num task-status__num--warn">2</span></li>
+            <li><span class="task-status__name">Назначено сегодня</span><span class="task-status__num">7</span></li>
+            <li><span class="task-status__name">Закрыто за неделю</span><span class="task-status__num task-status__num--ok">41</span></li>
+          </ul>
+        </article>
+        <article class="dash-card dash-card--wide">
+          <h3 class="dash-card__label">Состав команды</h3>
+          <p class="muted team-roster__hint">Топ‑5 из того же рейтинга, что у продавца во вкладке «Рейтинг».</p>
+          <ul class="team-roster" id="teamComposition"></ul>
+        </article>
+      </div>
+    </section>
+    <section class="tab-panel" id="panel-nps" role="tabpanel" hidden>
+      <h2>НПС</h2>
+      <p class="muted">Net Promoter Score, детракторы и промоутеры — отдельно от общей сводки (прототип).</p>
+      <div class="chart-placeholder">НПС по точкам / периодам (макет)</div>
+    </section>
+    <section class="tab-panel" id="panel-metrics-tt" role="tabpanel" hidden>
+      <h2>Метрики по ТТ</h2>
+      <p class="muted">Показатели по торговым точкам (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-stock" role="tabpanel" hidden>
+      <h2>Остатки товара</h2>
+      <p class="muted">Остатки и движение по складу / ТТ (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-plan-fact" role="tabpanel" hidden>
+      <h2>План-факт</h2>
+      <p class="muted">Плановые и фактические показатели (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-task-manager" role="tabpanel" hidden>
+      <h2>Таск-менеджер</h2>
+      <p class="muted">Задачи команды и контроль сроков (прототип).</p>
+      <ul class="list-demo">
+        <li>Иван Петров — обзвон лида «СтройТорг» (до пятницы)</li>
+        <li>Мария Сидорова — КП по сделке #892</li>
+        <li>Команда — обновить скрипт холодных звонков</li>
+      </ul>
+    </section>
+    <section class="tab-panel" id="panel-dept-rating" role="tabpanel" hidden>
+      <h2>Рейтинг отдела</h2>
+      <p class="muted">Позиция отдела среди других (прототип).</p>
+      <p><strong>Отдел:</strong> 2 место из 6 по выручке.</p>
+    </section>
+    <section class="tab-panel" id="panel-planner" role="tabpanel" hidden>
+      <h2>Планер</h2>
+      <p class="muted">Совещания и планёрки (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-new-clients" role="tabpanel" hidden>
+      <h2>Новые клиенты</h2>
+      <p class="muted">Приток и обработка новых клиентов (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-seller-reports" role="tabpanel" hidden>
+      <h2>Отчёты продавцов</h2>
+      <div class="mock-screenshot-crop">
+        <div class="mock-screenshot-inner">
+          <img class="mock-screenshot" src="скрин мок.jpg" alt="Скрин мок отчётов продавцов" />
+        </div>
+      </div>
+    </section>
+    <section class="tab-panel" id="panel-charts" role="tabpanel" hidden>
+      <h2>Графики</h2>
+      <p class="muted">Продажи отдела, конверсия, воронка (прототип).</p>
+      <div class="chart-placeholder">График (макет)</div>
+    </section>
+    <section class="tab-panel" id="panel-vacations" role="tabpanel" hidden>
+      <h2>Отпуска</h2>
+      <p class="muted">График отпусков и согласования (прототип).</p>
+    </section>
+    <section class="tab-panel" id="panel-seller-rating" role="tabpanel" hidden>
+      <h2>Рейтинг продавцов</h2>
+      <p class="muted">Тот же список из 24 продавцов, что и у роли «Продавец» во вкладке «Рейтинг».</p>
+      <ol class="rating-list" id="sellerRatingList"></ol>
+    </section>
+  </main>
+
+  <script src="crm-rating.js"></script>
+  <script>
+    (function () {
+      var map = {
+        dashboard: 'panel-dashboard',
+        nps: 'panel-nps',
+        'metrics-tt': 'panel-metrics-tt',
+        stock: 'panel-stock',
+        'plan-fact': 'panel-plan-fact',
+        'task-manager': 'panel-task-manager',
+        'dept-rating': 'panel-dept-rating',
+        planner: 'panel-planner',
+        'new-clients': 'panel-new-clients',
+        'seller-reports': 'panel-seller-reports',
+        charts: 'panel-charts',
+        vacations: 'panel-vacations',
+        'seller-rating': 'panel-seller-rating'
+      };
+
+      (function fillTeamAndRating() {
+        var people = window.CRM.getRatingPeople();
+        var top5 = people.slice(0, 5);
+        var teamEl = document.getElementById('teamComposition');
+        var listEl = document.getElementById('sellerRatingList');
+        if (teamEl) {
+          teamEl.innerHTML = '';
+          top5.forEach(function (s) {
+            var li = document.createElement('li');
+            li.className = 'team-roster__row';
+            li.innerHTML =
+              '<span class="team-roster__name">' +
+              s.name +
+              '</span><span class="team-roster__rating">★ ' +
+              s.rating.toFixed(1) +
+              '</span>';
+            teamEl.appendChild(li);
+          });
+        }
+        if (listEl) {
+          listEl.innerHTML = '';
+          people.forEach(function (s, idx) {
+            var li = document.createElement('li');
+            li.className = 'rating-list__row';
+            li.innerHTML =
+              '<span class="rating-list__name">' +
+              (idx + 1) +
+              '. ' +
+              s.name +
+              '</span><span class="rating-list__score">★ ' +
+              s.rating.toFixed(1) +
+              '</span>';
+            listEl.appendChild(li);
+          });
+        }
+      })();
+
+      var buttons = document.querySelectorAll('.tabs__btn');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-tab');
+          buttons.forEach(function (b) {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+
+          Object.keys(map).forEach(function (k) {
+            var el = document.getElementById(map[k]);
+            if (!el) return;
+            if (k === key) {
+              el.hidden = false;
+              el.classList.add('is-visible');
+            } else {
+              el.hidden = true;
+              el.classList.remove('is-visible');
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

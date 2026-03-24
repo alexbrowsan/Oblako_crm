@@ -1,0 +1,465 @@
+:root {
+  --bg: #0f1419;
+  --surface: #1a2332;
+  --border: #2d3a4d;
+  --text: #e8edf4;
+  --muted: #8b9aaf;
+  --accent: #3d8bfd;
+  --accent-dim: #2563c7;
+  --success: #34c759;
+  --radius: 10px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.page-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.card__title {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.card__subtitle {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.btn {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--accent-dim);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn--secondary:hover {
+  background: rgba(61, 139, 253, 0.12);
+}
+
+/* Dashboard */
+.page-dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.topbar__brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-right: auto;
+}
+
+.topbar__user {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar__name {
+  font-weight: 600;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.badge--role {
+  background: rgba(61, 139, 253, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(61, 139, 253, 0.35);
+  font-size: 0.75rem;
+}
+
+.badge--rating {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.35);
+}
+
+.badge--status {
+  background: rgba(52, 199, 89, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(52, 199, 89, 0.35);
+}
+
+.link-exit {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.link-exit:hover {
+  color: var(--text);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.tabs__btn {
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.tabs__btn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tabs__btn.is-active {
+  color: var(--text);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.panel {
+  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(1680px, 100%);
+  margin-inline: auto;
+  padding: 24px clamp(16px, 3vw, 32px);
+}
+
+.tab-panel h2 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+}
+
+.muted {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.list-demo {
+  margin: 16px 0 0;
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+.chart-placeholder {
+  margin-top: 16px;
+  height: 180px;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  background: var(--surface);
+}
+
+/* Dashboard tab */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+#panel-dashboard .dashboard-grid {
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  max-width: min(36vw, 100%);
+}
+
+.dash-card {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.dash-card--wide {
+  grid-column: 1 / -1;
+}
+
+.dash-card--span-2 {
+  grid-column: span 2;
+}
+
+.dash-card__label {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.dash-card__value {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.dash-card__value--rating {
+  color: #ffc107;
+}
+
+.task-status {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-status li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-status li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.task-status__name {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.task-status__num {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.task-status__num--warn {
+  color: #ff6b6b;
+}
+
+.task-status__num--ok {
+  color: var(--success);
+}
+
+.task-status-done {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--success);
+}
+
+.mock-screenshot {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: 16px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Отчёты продавцов: кроп только внутри inner — без отрицательного margin у внешнего блока (не наезжает на h2) */
+#panel-seller-reports .mock-screenshot-crop {
+  width: 100%;
+  margin-top: 16px;
+}
+
+#panel-seller-reports .mock-screenshot-inner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 45vh;
+  height: calc(100vh - 180px);
+  height: calc(100dvh - 180px);
+}
+
+#panel-seller-reports .mock-screenshot {
+  position: absolute;
+  left: 0;
+  top: -145px;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  display: block;
+}
+
+/* Manager dashboard: состав команды */
+.team-roster__hint {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+}
+
+.team-roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.team-roster__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.team-roster__row:last-child {
+  border-bottom: none;
+}
+
+.team-roster__name {
+  font-size: 0.95rem;
+}
+
+.team-roster__rating {
+  font-weight: 600;
+  color: #ffc107;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Rating leaderboard */
+.rating-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.rating-list__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+
+.rating-list__row:last-child {
+  border-bottom: none;
+}
+
+.rating-list__row--me {
+  background: rgba(61, 139, 253, 0.12);
+  border-left: 3px solid var(--accent);
+}
+
+.rating-list__name {
+  flex: 1;
+  min-width: 0;
+}
+
+.rating-list__score {
+  font-weight: 700;
+  color: #ffc107;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
