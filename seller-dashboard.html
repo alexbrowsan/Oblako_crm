@@ -27,25 +27,254 @@
   </nav>
 
   <main class="panel">
-    <section class="tab-panel is-visible" id="panel-dashboard" role="tabpanel">
-      <h2>Дашборд</h2>
-      <div class="dashboard-grid">
+    <section class="tab-panel is-visible seller-dash" id="panel-dashboard" role="tabpanel">
+      <h2 id="dashboardName">Иван Петров</h2>
+      <p class="seller-dash__kicker muted">Моя смена • Апатиты, Ферсмана 28 • смена 10:00–22:00</p>
+
+      <div class="seller-dash__top-grid">
         <article class="dash-card">
-          <h3 class="dash-card__label">Имя</h3>
-          <p class="dash-card__value" id="dashboardName">Иван Петров</p>
-        </article>
-        <article class="dash-card">
-          <h3 class="dash-card__label">Рейтинг</h3>
-          <p class="dash-card__value dash-card__value--rating" id="dashboardRating">★ 4.8</p>
-        </article>
-        <article class="dash-card dash-card--span-2">
-          <h3 class="dash-card__label">Магазин</h3>
-          <p class="dash-card__value">Апатиты, Ферсмана 28</p>
-        </article>
-        <article class="dash-card dash-card--span-2">
           <h3 class="dash-card__label">Статус по задачам</h3>
           <p class="task-status-done">Все задачи выполнены</p>
         </article>
+        <article class="dash-card seller-dash__forecast">
+          <h3 class="dash-card__label">Прогноз заработка за смену</h3>
+          <p class="seller-dash__forecast-sum">4&nbsp;250&nbsp;₽</p>
+          <p class="seller-dash__forecast-hint">+900&nbsp;₽ если добьёте план по выручке</p>
+        </article>
+      </div>
+
+      <div class="seller-dash__columns">
+        <div class="seller-dash__main">
+          <article class="dash-card seller-plan-card">
+            <header class="seller-plan-card__head">
+              <h3 class="seller-plan-card__title">План на сегодня</h3>
+              <span class="seller-badge-progress">Общий прогресс: 84%</span>
+            </header>
+            <div class="seller-metrics-grid" aria-label="Показатели плана на сегодня">
+              <article class="metric-card">
+                <div class="metric-card__top">
+                  <div>
+                    <p class="metric-card__name">Выручка</p>
+                    <p class="metric-card__fact">124&nbsp;500&nbsp;₽</p>
+                    <p class="metric-card__plan muted">План: 200&nbsp;000&nbsp;₽</p>
+                  </div>
+                  <div class="metric-card__left">
+                    <p class="muted metric-card__left-label">Осталось</p>
+                    <p class="metric-card__left-val">75&nbsp;500&nbsp;₽</p>
+                  </div>
+                </div>
+                <div class="metric-progress" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="Выручка: 62%">
+                  <div class="metric-progress__fill" style="width: 62%"></div>
+                </div>
+                <p class="metric-card__pct muted">Выполнение: 62%</p>
+              </article>
+              <article class="metric-card">
+                <div class="metric-card__top">
+                  <div>
+                    <p class="metric-card__name">Средний чек</p>
+                    <p class="metric-card__fact">1&nbsp;820&nbsp;₽</p>
+                    <p class="metric-card__plan muted">План: 2&nbsp;100&nbsp;₽</p>
+                  </div>
+                  <div class="metric-card__left">
+                    <p class="muted metric-card__left-label">Осталось</p>
+                    <p class="metric-card__left-val">280&nbsp;₽</p>
+                  </div>
+                </div>
+                <div class="metric-progress" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" aria-label="Средний чек: 86%">
+                  <div class="metric-progress__fill" style="width: 86%"></div>
+                </div>
+                <p class="metric-card__pct muted">Выполнение: 86%</p>
+              </article>
+              <article class="metric-card">
+                <div class="metric-card__top">
+                  <div>
+                    <p class="metric-card__name">Глубина чека</p>
+                    <p class="metric-card__fact">2,4</p>
+                    <p class="metric-card__plan muted">План: 3,0</p>
+                  </div>
+                  <div class="metric-card__left">
+                    <p class="muted metric-card__left-label">Осталось</p>
+                    <p class="metric-card__left-val">0,6</p>
+                  </div>
+                </div>
+                <div class="metric-progress" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Глубина чека: 80%">
+                  <div class="metric-progress__fill" style="width: 80%"></div>
+                </div>
+                <p class="metric-card__pct muted">Выполнение: 80%</p>
+              </article>
+              <article class="metric-card">
+                <div class="metric-card__top">
+                  <div>
+                    <p class="metric-card__name">Оцифровка</p>
+                    <p class="metric-card__fact">18</p>
+                    <p class="metric-card__plan muted">План: 22</p>
+                  </div>
+                  <div class="metric-card__left">
+                    <p class="muted metric-card__left-label">Осталось</p>
+                    <p class="metric-card__left-val">4 клиента</p>
+                  </div>
+                </div>
+                <div class="metric-progress" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="Оцифровка: 82%">
+                  <div class="metric-progress__fill" style="width: 82%"></div>
+                </div>
+                <p class="metric-card__pct muted">Выполнение: 82%</p>
+              </article>
+              <article class="metric-card">
+                <div class="metric-card__top">
+                  <div>
+                    <p class="metric-card__name">Красные ценники</p>
+                    <p class="metric-card__fact">14&nbsp;200&nbsp;₽</p>
+                    <p class="metric-card__plan muted">План: 18&nbsp;000&nbsp;₽</p>
+                  </div>
+                  <div class="metric-card__left">
+                    <p class="muted metric-card__left-label">Осталось</p>
+                    <p class="metric-card__left-val">3&nbsp;800&nbsp;₽</p>
+                  </div>
+                </div>
+                <div class="metric-progress" role="progressbar" aria-valuenow="79" aria-valuemin="0" aria-valuemax="100" aria-label="Красные ценники: 79%">
+                  <div class="metric-progress__fill" style="width: 79%"></div>
+                </div>
+                <p class="metric-card__pct muted">Выполнение: 79%</p>
+              </article>
+              <article class="metric-card">
+                <div class="metric-card__top">
+                  <div>
+                    <p class="metric-card__name">Доп. продажи</p>
+                    <p class="metric-card__fact">9&nbsp;400&nbsp;₽</p>
+                    <p class="metric-card__plan muted">План: 12&nbsp;000&nbsp;₽</p>
+                  </div>
+                  <div class="metric-card__left">
+                    <p class="muted metric-card__left-label">Осталось</p>
+                    <p class="metric-card__left-val">2&nbsp;600&nbsp;₽</p>
+                  </div>
+                </div>
+                <div class="metric-progress" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" aria-label="Доп. продажи: 78%">
+                  <div class="metric-progress__fill" style="width: 78%"></div>
+                </div>
+                <p class="metric-card__pct muted">Выполнение: 78%</p>
+              </article>
+            </div>
+          </article>
+
+          <div class="seller-dash__bottom-row">
+            <article class="dash-card seller-tasks-preview">
+              <div class="seller-tasks-preview__head">
+                <h3 class="seller-plan-card__title">Задачи и запросы</h3>
+                <button type="button" class="btn btn--secondary seller-tasks-preview__btn">Создать запрос</button>
+              </div>
+              <ul class="seller-task-chips">
+                <li class="seller-task-chip">
+                  <div>
+                    <p class="seller-task-chip__title">Проверить выкладку красных ценников</p>
+                    <p class="muted seller-task-chip__meta">Сегодня до 15:00</p>
+                  </div>
+                  <span class="seller-task-chip__status">В работе</span>
+                </li>
+                <li class="seller-task-chip">
+                  <div>
+                    <p class="seller-task-chip__title">Запросить одноразки с ТТ Североморск</p>
+                    <p class="muted seller-task-chip__meta">Ожидает ответ</p>
+                  </div>
+                  <span class="seller-task-chip__status">Отправлен запрос</span>
+                </li>
+                <li class="seller-task-chip">
+                  <div>
+                    <p class="seller-task-chip__title">Ознакомиться с новым скриптом продаж</p>
+                    <p class="muted seller-task-chip__meta">Новая задача</p>
+                  </div>
+                  <span class="seller-task-chip__status">Не начато</span>
+                </li>
+              </ul>
+            </article>
+            <article class="dash-card seller-store-card">
+              <h3 class="seller-plan-card__title">Карточка торговой точки</h3>
+              <div class="seller-store-card__photo muted" aria-hidden="true">Фото точки</div>
+              <div class="seller-store-card__grid">
+                <div class="seller-store-card__cell">
+                  <p class="muted seller-store-card__cell-label">Адрес</p>
+                  <p class="seller-store-card__cell-val">Апатиты, Ферсмана 28</p>
+                </div>
+                <div class="seller-store-card__cell">
+                  <p class="muted seller-store-card__cell-label">Статус</p>
+                  <p class="seller-store-card__cell-val">На смене 2 сотрудника</p>
+                </div>
+                <div class="seller-store-card__cell seller-store-card__cell--wide">
+                  <p class="muted seller-store-card__cell-label">Особенности точки</p>
+                  <p class="seller-store-card__cell-val">Касса справа, одноразки у входа, премиум табак на верхней полке, расходники в нижнем шкафу.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <aside class="seller-dash__aside">
+          <article class="dash-card seller-rating-mini">
+            <h3 class="seller-plan-card__title">Место в рейтинге</h3>
+            <ul class="seller-rating-mini__list">
+              <li class="seller-rating-mini__row">
+                <div class="seller-rating-mini__who">
+                  <span class="seller-rating-mini__place" aria-hidden="true">#1</span>
+                  <div>
+                    <p class="seller-rating-mini__name">Алина</p>
+                    <p class="muted seller-rating-mini__tt">ТТ Мурманск</p>
+                  </div>
+                </div>
+                <span class="seller-rating-mini__pct">96%</span>
+              </li>
+              <li class="seller-rating-mini__row">
+                <div class="seller-rating-mini__who">
+                  <span class="seller-rating-mini__place" aria-hidden="true">#2</span>
+                  <div>
+                    <p class="seller-rating-mini__name">Максим</p>
+                    <p class="muted seller-rating-mini__tt">ТТ Североморск</p>
+                  </div>
+                </div>
+                <span class="seller-rating-mini__pct">91%</span>
+              </li>
+              <li class="seller-rating-mini__row">
+                <div class="seller-rating-mini__who">
+                  <span class="seller-rating-mini__place" aria-hidden="true">#3</span>
+                  <div>
+                    <p class="seller-rating-mini__name">Дина</p>
+                    <p class="muted seller-rating-mini__tt">ТТ Кандалакша</p>
+                  </div>
+                </div>
+                <span class="seller-rating-mini__pct">89%</span>
+              </li>
+              <li class="seller-rating-mini__row seller-rating-mini__row--me">
+                <div class="seller-rating-mini__who">
+                  <span class="seller-rating-mini__place" aria-hidden="true">#4</span>
+                  <div>
+                    <p class="seller-rating-mini__name">Вы</p>
+                    <p class="muted seller-rating-mini__tt">ТТ Апатиты</p>
+                  </div>
+                </div>
+                <span class="seller-rating-mini__pct">84%</span>
+              </li>
+            </ul>
+            <div class="seller-rating-gap">
+              <p class="seller-rating-gap__label muted">До 3 места осталось</p>
+              <p class="seller-rating-gap__val">5%</p>
+            </div>
+          </article>
+          <article class="dash-card seller-income-card">
+            <h3 class="seller-plan-card__title">Доход за смену</h3>
+            <dl class="seller-income-list">
+              <div class="seller-income-list__row">
+                <dt>Ставка</dt>
+                <dd>2&nbsp;500&nbsp;₽</dd>
+              </div>
+              <div class="seller-income-list__row">
+                <dt>Бонус за KPI</dt>
+                <dd>1&nbsp;750&nbsp;₽</dd>
+              </div>
+              <div class="seller-income-list__row seller-income-list__row--total">
+                <dt>Итого прогноз</dt>
+                <dd>4&nbsp;250&nbsp;₽</dd>
+              </div>
+            </dl>
+          </article>
+        </aside>
       </div>
     </section>
     <section class="tab-panel" id="panel-tasks" role="tabpanel" hidden>
