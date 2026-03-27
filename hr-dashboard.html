@@ -16,6 +16,7 @@
 
   <nav class="tabs tabs--hr" role="tablist" aria-label="Разделы HR">
     <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" data-tab="dashboard">Дашборд</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="employee-card">Карточка сотрудника</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="messages">Сообщения</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="vacations">Отпуска</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="birthdays">Дни рождения</button>
@@ -121,6 +122,46 @@
         </ul>
       </article>
     </section>
+    <section class="tab-panel hr-employee-panel" id="panel-employee-card" role="tabpanel" hidden>
+      <h2>Карточка сотрудника</h2>
+      <p class="muted hr-employee-panel__intro">Просмотр профиля и кадровых данных (прототип, пример заполнения).</p>
+
+      <div class="hr-employee-panel__layout">
+        <article class="dash-card hr-employee-panel__aside">
+          <div class="hr-employee-panel__photo muted" aria-hidden="true">Фото</div>
+          <p class="hr-employee-panel__name">Екатерина Соколова</p>
+          <p class="muted hr-employee-panel__role">Продавец-консультант</p>
+          <div class="hr-employee-panel__tags">
+            <span class="hr-employee-panel__tag hr-employee-panel__tag--ok">Работает</span>
+          </div>
+        </article>
+
+        <div class="hr-employee-panel__main">
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title">Основное</h3>
+            <dl class="hr-employee-panel__dl">
+              <div><dt>Подразделение</dt><dd>Розница, Мурманская область</dd></div>
+              <div><dt>Торговая точка</dt><dd>Апатиты, Ферсмана 28</dd></div>
+              <div><dt>Дата приёма</dt><dd>12.02.2025</dd></div>
+              <div><dt>Непосредственный руководитель</dt><dd>Сергей Орлов</dd></div>
+            </dl>
+          </article>
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title">Контакты</h3>
+            <dl class="hr-employee-panel__dl">
+              <div><dt>Телефон</dt><dd>+7&nbsp;900&nbsp;000‑00‑00</dd></div>
+              <div><dt>Рабочая почта</dt><dd>e.sokolova@company.ru</dd></div>
+            </dl>
+          </article>
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title">Обучение и документы</h3>
+            <ul class="hr-employee-panel__list">
+              <li>Трудовой договор — в архиве кадров</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
     <section class="tab-panel" id="panel-messages" role="tabpanel" hidden>
       <h2>Сообщения</h2>
       <p class="muted">Внутренняя переписка и уведомления (прототип).</p>
@@ -151,6 +192,7 @@
     (function () {
       var map = {
         dashboard: 'panel-dashboard',
+        'employee-card': 'panel-employee-card',
         messages: 'panel-messages',
         vacations: 'panel-vacations',
         birthdays: 'panel-birthdays',
