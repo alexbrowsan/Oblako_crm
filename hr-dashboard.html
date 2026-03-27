@@ -8,7 +8,6 @@
 </head>
 <body class="page-dashboard">
   <header class="topbar">
-    <div class="topbar__brand">CRM</div>
     <div class="topbar__user">
       <span class="topbar__name">Алина</span>
     </div>
@@ -26,26 +25,101 @@
   </nav>
 
   <main class="panel">
-    <section class="tab-panel is-visible" id="panel-dashboard" role="tabpanel">
-      <h2>Дашборд</h2>
-      <div class="dashboard-grid">
+    <section class="tab-panel is-visible hr-dash" id="panel-dashboard" role="tabpanel">
+      <h2 id="dashboardName">Алина</h2>
+      <p class="hr-dash__kicker muted">Обзор сотрудников и процессов</p>
+
+      <div class="hr-dash__kpis">
         <article class="dash-card">
-          <h3 class="dash-card__label">Имя</h3>
-          <p class="dash-card__value">Алина</p>
+          <h3 class="dash-card__label">Всего сотрудников</h3>
+          <p class="dash-card__value">87</p>
         </article>
         <article class="dash-card">
-          <h3 class="dash-card__label">Заявки на отпуск</h3>
-          <p class="dash-card__value">3 на согласовании</p>
+          <h3 class="dash-card__label">Новые сотрудники</h3>
+          <p class="dash-card__value">6</p>
         </article>
-        <article class="dash-card dash-card--wide">
-          <h3 class="dash-card__label">Ближайшие дни рождения</h3>
-          <ul class="list-demo">
-            <li>12 мар — Алексей Смирнов</li>
-            <li>18 мар — Мария Волкова</li>
-            <li>22 мар — Дмитрий Орлов</li>
+        <article class="dash-card">
+          <h3 class="dash-card__label">Текучка за месяц</h3>
+          <p class="dash-card__value">12%</p>
+        </article>
+        <article class="dash-card">
+          <h3 class="dash-card__label">Средний срок работы</h3>
+          <p class="dash-card__value">4.2 мес</p>
+        </article>
+      </div>
+
+      <div class="hr-dash__row hr-dash__row--split">
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Требует внимания</h3>
+          <ul class="hr-dash__alerts">
+            <li class="hr-dash__alert-item hr-dash__alert-item--warn">3 сотрудника в риске увольнения (адаптация)</li>
+            <li class="hr-dash__alert-item">2 сотрудника не прошли обучение</li>
+            <li class="hr-dash__alert-item">5 сотрудников не подтвердили ознакомление</li>
+          </ul>
+        </article>
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Новые сотрудники</h3>
+          <ul class="hr-dash__onboarding">
+            <li class="hr-dash__onboarding-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Алина</p>
+                <p class="hr-dash__onboarding-meta muted">3 день</p>
+              </div>
+              <span class="hr-dash__onboarding-status">Адаптация</span>
+            </li>
+            <li class="hr-dash__onboarding-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Максим</p>
+                <p class="hr-dash__onboarding-meta muted">7 день</p>
+              </div>
+              <span class="hr-dash__onboarding-status">Обучение</span>
+            </li>
+            <li class="hr-dash__onboarding-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Игорь</p>
+                <p class="hr-dash__onboarding-meta muted">2 день</p>
+              </div>
+              <span class="hr-dash__onboarding-status">Новый сотрудник</span>
+            </li>
           </ul>
         </article>
       </div>
+
+      <div class="hr-dash__row hr-dash__row--triple">
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Воронка сотрудников</h3>
+          <ul class="hr-dash__stat-list">
+            <li><span class="muted">Кандидаты</span><span class="hr-dash__stat-value">24</span></li>
+            <li><span class="muted">Вышли на работу</span><span class="hr-dash__stat-value">9</span></li>
+            <li><span class="muted">Прошли адаптацию</span><span class="hr-dash__stat-value">6</span></li>
+          </ul>
+        </article>
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Текучка</h3>
+          <ul class="hr-dash__stat-list">
+            <li><span class="muted">Уволилось</span><span class="hr-dash__stat-value">8</span></li>
+            <li><span class="muted">Активные</span><span class="hr-dash__stat-value">87</span></li>
+            <li><span class="muted">Текучка</span><span class="hr-dash__stat-value">12%</span></li>
+          </ul>
+        </article>
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Развитие</h3>
+          <ul class="hr-dash__stat-list">
+            <li><span class="muted">Junior</span><span class="hr-dash__stat-value">23</span></li>
+            <li><span class="muted">Middle</span><span class="hr-dash__stat-value">41</span></li>
+            <li><span class="muted">Senior</span><span class="hr-dash__stat-value">23</span></li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="dash-card hr-dash__card--full">
+        <h3 class="seller-plan-card__title">Быстрые ссылки</h3>
+        <p class="muted hr-dash__hint">Заявки на отпуск и дни рождения — во вкладках выше.</p>
+        <ul class="hr-dash__stat-list hr-dash__stat-list--compact">
+          <li><span class="muted">Отпуска на согласовании</span><span class="hr-dash__stat-value">3</span></li>
+          <li><span class="muted">Ближайшие дни рождения (неделя)</span><span class="hr-dash__stat-value">3</span></li>
+        </ul>
+      </article>
     </section>
     <section class="tab-panel" id="panel-messages" role="tabpanel" hidden>
       <h2>Сообщения</h2>

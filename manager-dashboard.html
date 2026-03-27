@@ -8,7 +8,6 @@
 </head>
 <body class="page-dashboard">
   <header class="topbar">
-    <div class="topbar__brand">CRM</div>
     <div class="topbar__user">
       <span class="topbar__name" id="managerName">Сергей Орлов</span>
     </div>
@@ -32,19 +31,129 @@
   </nav>
 
   <main class="panel">
-    <section class="tab-panel is-visible" id="panel-dashboard" role="tabpanel">
-      <h2>Дашборд</h2>
-      <div class="dashboard-grid">
+    <section class="tab-panel is-visible manager-dash" id="panel-dashboard" role="tabpanel">
+      <h2 id="dashboardName">Сергей Орлов</h2>
+      <p class="manager-dash__kicker muted">Сегодня • 4 торговые точки • <span id="dashboardRating" class="manager-dash__rating-inline">★ 4.6</span> рейтинг команды</p>
+
+      <div class="manager-dash__kpis">
         <article class="dash-card">
-          <h3 class="dash-card__label">Имя</h3>
-          <p class="dash-card__value" id="dashboardName">Сергей Орлов</p>
+          <h3 class="dash-card__label">Выручка сегодня</h3>
+          <p class="dash-card__value">761&nbsp;400&nbsp;₽</p>
         </article>
         <article class="dash-card">
-          <h3 class="dash-card__label">Рейтинг команды</h3>
-          <p class="dash-card__value dash-card__value--rating" id="dashboardRating">★ 4.6</p>
+          <h3 class="dash-card__label">Выполнение плана</h3>
+          <p class="dash-card__value">87%</p>
         </article>
-        <article class="dash-card dash-card--wide">
-          <h3 class="dash-card__label">Статус по задачам отдела</h3>
+        <article class="dash-card">
+          <h3 class="dash-card__label">Средний чек</h3>
+          <p class="dash-card__value">1&nbsp;890&nbsp;₽</p>
+        </article>
+        <article class="dash-card">
+          <h3 class="dash-card__label">Точек в риске</h3>
+          <p class="dash-card__value">2</p>
+        </article>
+      </div>
+
+      <article class="dash-card manager-dash__stores-wrap">
+        <h3 class="seller-plan-card__title">Магазины</h3>
+        <div class="manager-dash__store-table" role="group" aria-label="Показатели по торговым точкам">
+          <div class="manager-dash__store-row manager-dash__store-row--head">
+            <span>Точка</span>
+            <span>Выручка</span>
+            <span>План</span>
+            <span>Ср. чек</span>
+            <span>Статус</span>
+          </div>
+          <div class="manager-dash__store-row">
+            <span class="manager-dash__store-name">ТТ Апатиты</span>
+            <span>182&nbsp;400&nbsp;₽</span>
+            <span>82%</span>
+            <span>1&nbsp;720&nbsp;₽</span>
+            <span><span class="manager-dash__badge manager-dash__badge--risk">Риск</span></span>
+          </div>
+          <div class="manager-dash__store-row">
+            <span class="manager-dash__store-name">ТТ Мурманск</span>
+            <span>241&nbsp;800&nbsp;₽</span>
+            <span>104%</span>
+            <span>2&nbsp;140&nbsp;₽</span>
+            <span><span class="manager-dash__badge manager-dash__badge--ok">Ок</span></span>
+          </div>
+          <div class="manager-dash__store-row">
+            <span class="manager-dash__store-name">ТТ Кандалакша</span>
+            <span>139&nbsp;200&nbsp;₽</span>
+            <span>71%</span>
+            <span>1&nbsp;580&nbsp;₽</span>
+            <span><span class="manager-dash__badge manager-dash__badge--bad">Проблема</span></span>
+          </div>
+          <div class="manager-dash__store-row">
+            <span class="manager-dash__store-name">ТТ Североморск</span>
+            <span>198&nbsp;000&nbsp;₽</span>
+            <span>93%</span>
+            <span>1&nbsp;880&nbsp;₽</span>
+            <span><span class="manager-dash__badge manager-dash__badge--norm">Нормально</span></span>
+          </div>
+        </div>
+      </article>
+
+      <div class="manager-dash__row manager-dash__row--triple">
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Сигналы</h3>
+          <ul class="hr-dash__alerts">
+            <li class="hr-dash__alert-item hr-dash__alert-item--warn">ТТ Кандалакша — риск не выполнить план</li>
+            <li class="hr-dash__alert-item">ТТ Апатиты — падает средний чек</li>
+            <li class="hr-dash__alert-item">2 запроса продавцов без ответа</li>
+          </ul>
+        </article>
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Топ продавцов</h3>
+          <ul class="hr-dash__onboarding">
+            <li class="hr-dash__onboarding-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Алина</p>
+                <p class="hr-dash__onboarding-meta muted">ТТ Мурманск</p>
+              </div>
+              <span class="hr-dash__onboarding-status">96%</span>
+            </li>
+            <li class="hr-dash__onboarding-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Максим</p>
+                <p class="hr-dash__onboarding-meta muted">ТТ Североморск</p>
+              </div>
+              <span class="hr-dash__onboarding-status">92%</span>
+            </li>
+            <li class="hr-dash__onboarding-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Дина</p>
+                <p class="hr-dash__onboarding-meta muted">ТТ Апатиты</p>
+              </div>
+              <span class="hr-dash__onboarding-status">88%</span>
+            </li>
+          </ul>
+        </article>
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Требуют внимания</h3>
+          <ul class="manager-dash__low-list">
+            <li class="manager-dash__low-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Игорь</p>
+                <p class="hr-dash__onboarding-meta muted">ТТ Кандалакша</p>
+              </div>
+              <span class="manager-dash__low-pct">54%</span>
+            </li>
+            <li class="manager-dash__low-row">
+              <div>
+                <p class="hr-dash__onboarding-name">Денис</p>
+                <p class="hr-dash__onboarding-meta muted">ТТ Апатиты</p>
+              </div>
+              <span class="manager-dash__low-pct">61%</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="manager-dash__row manager-dash__row--split">
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Статус по задачам отдела</h3>
           <ul class="task-status">
             <li><span class="task-status__name">В работе у продавцов</span><span class="task-status__num">18</span></li>
             <li><span class="task-status__name">Просрочено</span><span class="task-status__num task-status__num--warn">2</span></li>
@@ -52,8 +161,8 @@
             <li><span class="task-status__name">Закрыто за неделю</span><span class="task-status__num task-status__num--ok">41</span></li>
           </ul>
         </article>
-        <article class="dash-card dash-card--wide">
-          <h3 class="dash-card__label">Состав команды</h3>
+        <article class="dash-card">
+          <h3 class="seller-plan-card__title">Состав команды</h3>
           <p class="muted team-roster__hint">Топ‑5 из того же рейтинга, что у продавца во вкладке «Рейтинг».</p>
           <ul class="team-roster" id="teamComposition"></ul>
         </article>

@@ -1,23 +1,25 @@
-export default function SellerAppMockup() {
+import React from 'react';
+
+export function SellerAppMockup() {
   const metrics = [
     { name: 'Выручка', fact: '124 500 ₽', plan: '200 000 ₽', left: '75 500 ₽', progress: 62 },
     { name: 'Средний чек', fact: '1 820 ₽', plan: '2 100 ₽', left: '280 ₽', progress: 86 },
     { name: 'Глубина чека', fact: '2.4', plan: '3.0', left: '0.6', progress: 80 },
-    { name: 'Оцифрованные клиенты', fact: '18', plan: '22', left: '4 клиента', progress: 82 },
+    { name: 'Оцифровка', fact: '18', plan: '22', left: '4 клиента', progress: 82 },
     { name: 'Красные ценники', fact: '14 200 ₽', plan: '18 000 ₽', left: '3 800 ₽', progress: 79 },
-    { name: 'Синие ценники', fact: '9 400 ₽', plan: '12 000 ₽', left: '2 600 ₽', progress: 78 },
+    { name: 'Доп. продажи', fact: '9 400 ₽', plan: '12 000 ₽', left: '2 600 ₽', progress: 78 },
   ];
 
   const rating = [
-    { place: 1, name: 'Алина', point: 'ТТ Мурманск', value: '★ 4.89' },
-    { place: 2, name: 'Максим', point: 'ТТ Североморск', value: '★ 4.76' },
-    { place: 3, name: 'Дина', point: 'ТТ Кандалакша', value: '★ 4.71' },
-    { place: 4, name: 'Вы', point: 'ТТ Апатиты', value: '★ 4.58', me: true },
+    { place: 1, name: 'Алина', point: 'ТТ Ауэзова', value: '96%' },
+    { place: 2, name: 'Максим', point: 'ТТ Абая', value: '91%' },
+    { place: 3, name: 'Дина', point: 'ТТ Сатпаева', value: '89%' },
+    { place: 4, name: 'Вы', point: 'ТТ Арбат', value: '84%', me: true },
   ];
 
   const tasks = [
     { title: 'Проверить выкладку красных ценников', status: 'В работе', priority: 'Сегодня до 15:00' },
-    { title: 'Запросить одноразки с ТТ Североморск', status: 'Отправлен запрос', priority: 'Ожидает ответ' },
+    { title: 'Запросить одноразки с ТТ Абая', status: 'Отправлен запрос', priority: 'Ожидает ответ' },
     { title: 'Ознакомиться с новым скриптом продаж', status: 'Не начато', priority: 'Новая задача' },
   ];
 
@@ -28,7 +30,7 @@ export default function SellerAppMockup() {
           <div>
             <div className="text-sm text-slate-500">Приложение продавца</div>
             <h1 className="text-3xl font-bold">Моя смена</h1>
-            <div className="mt-1 text-sm text-slate-600">Апатиты • Смена 10:00–22:00 • Сегодня</div>
+            <div className="mt-1 text-sm text-slate-600">Арбат • Смена 10:00–22:00 • Сегодня</div>
           </div>
           <div className="rounded-2xl bg-white px-5 py-4 shadow-sm ring-1 ring-slate-200">
             <div className="text-sm text-slate-500">Прогноз заработка за смену</div>
@@ -64,7 +66,7 @@ export default function SellerAppMockup() {
                   <div className="mt-4 h-3 rounded-full bg-slate-100">
                     <div className="h-3 rounded-full bg-slate-900" style={{ width: `${m.progress}%` }} />
                   </div>
-                  <div className="mt-2 text-sm text-slate-500">Факт: {m.fact}</div>
+                  <div className="mt-2 text-sm text-slate-500">Выполнение: {m.progress}%</div>
                 </div>
               ))}
             </div>
@@ -92,8 +94,8 @@ export default function SellerAppMockup() {
                 ))}
               </div>
               <div className="mt-4 rounded-2xl bg-slate-900 p-4 text-white">
-                <div className="text-sm opacity-80">До 3 места осталось, баллов</div>
-                <div className="mt-1 text-2xl font-bold">0.13</div>
+                <div className="text-sm opacity-80">До 3 места осталось</div>
+                <div className="mt-1 text-2xl font-bold">5%</div>
               </div>
             </div>
 
@@ -103,7 +105,7 @@ export default function SellerAppMockup() {
                 <div className="flex justify-between"><span className="text-slate-500">Ставка</span><span className="font-medium">2 500 ₽</span></div>
                 <div className="flex justify-between"><span className="text-slate-500">Бонус за KPI</span><span className="font-medium">1 750 ₽</span></div>
                 <div className="flex justify-between"><span className="text-slate-500">Бонус за топ-3</span><span className="font-medium">600 ₽</span></div>
-                <div className="border-t border-slate-200 pt-3 flex justify-between text-base font-semibold"><span>Итого прогноз</span><span>4 850 ₽</span></div>
+                <div className="flex justify-between border-t border-slate-200 pt-3 text-base font-semibold"><span>Итого прогноз</span><span>4 850 ₽</span></div>
               </div>
             </div>
           </div>
@@ -144,13 +146,13 @@ export default function SellerAppMockup() {
             <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
               <div className="rounded-2xl bg-slate-50 p-4">
                 <div className="text-slate-500">Адрес</div>
-                <div className="mt-1 font-medium">Апатиты, Ферсмана 28</div>
+                <div className="mt-1 font-medium">Арбат, 14</div>
               </div>
               <div className="rounded-2xl bg-slate-50 p-4">
                 <div className="text-slate-500">Статус</div>
                 <div className="mt-1 font-medium">На смене 2 сотрудника</div>
               </div>
-              <div className="rounded-2xl bg-slate-50 p-4 col-span-2">
+              <div className="col-span-2 rounded-2xl bg-slate-50 p-4">
                 <div className="text-slate-500">Особенности точки</div>
                 <div className="mt-1 font-medium">Касса справа, одноразки у входа, премиум табак на верхней полке, расходники в нижнем шкафу.</div>
               </div>
@@ -164,74 +166,63 @@ export default function SellerAppMockup() {
 
 export function ManagerDashboardMockup() {
   const stores = [
-    { name: 'ТТ Апатиты', revenue: '182 400 ₽', plan: 82, avg: '1 720 ₽', status: 'risk' },
-    { name: 'ТТ Мурманск', revenue: '241 800 ₽', plan: 104, avg: '2 140 ₽', status: 'good' },
-    { name: 'ТТ Кандалакша', revenue: '139 200 ₽', plan: 71, avg: '1 580 ₽', status: 'bad' },
-    { name: 'ТТ Североморск', revenue: '198 000 ₽', plan: 93, avg: '1 880 ₽', status: 'normal' },
+    { name: 'ТТ Арбат', revenue: '182 400 ₽', plan: 82, avg: '1 720 ₽', status: 'risk' },
+    { name: 'ТТ Абая', revenue: '241 800 ₽', plan: 104, avg: '2 140 ₽', status: 'good' },
+    { name: 'ТТ Сатпаева', revenue: '139 200 ₽', plan: 71, avg: '1 580 ₽', status: 'bad' },
+    { name: 'ТТ Ауэзова', revenue: '198 000 ₽', plan: 93, avg: '1 880 ₽', status: 'normal' },
   ];
 
   const employeesTop = [
-    { name: 'Алина', percent: 96, store: 'Мурманск' },
-    { name: 'Максим', percent: 92, store: 'Североморск' },
-    { name: 'Дина', percent: 88, store: 'Апатиты' },
+    { name: 'Алина', percent: 96, store: 'Ауэзова' },
+    { name: 'Максим', percent: 92, store: 'Абая' },
+    { name: 'Дина', percent: 88, store: 'Арбат' },
   ];
 
   const employeesLow = [
-    { name: 'Игорь', percent: 54, store: 'Кандалакша' },
-    { name: 'Денис', percent: 61, store: 'Апатиты' },
+    { name: 'Игорь', percent: 54, store: 'Сатпаева' },
+    { name: 'Денис', percent: 61, store: 'Арбат' },
   ];
 
   const alerts = [
-    'ТТ Кандалакша — риск не выполнить план',
-    'ТТ Апатиты — падает средний чек',
+    'ТТ Сатпаева — риск не выполнить план',
+    'ТТ Арбат — падает средний чек',
     '2 запроса продавцов без ответа',
   ];
 
   return (
-    <div className="min-h-screen bg-slate-100 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-
-        {/* Header */}
-        <div className="flex justify-between items-center">
+    <div className="min-h-screen bg-slate-100 p-6 text-slate-900">
+      <div className="mx-auto max-w-7xl space-y-6">
+        <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold">Дашборд управляющего</h1>
             <div className="text-slate-500">Сегодня • 4 магазина</div>
           </div>
         </div>
 
-        {/* Top Metrics */}
-        <div className="grid grid-cols-4 gap-4">
-          <div className="bg-white p-5 rounded-2xl shadow">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="rounded-2xl bg-white p-5 shadow">
             <div className="text-sm text-slate-500">Выручка сегодня</div>
             <div className="text-2xl font-bold">761 400 ₽</div>
           </div>
-
-          <div className="bg-white p-5 rounded-2xl shadow">
+          <div className="rounded-2xl bg-white p-5 shadow">
             <div className="text-sm text-slate-500">Выполнение плана</div>
             <div className="text-2xl font-bold">87%</div>
           </div>
-
-          <div className="bg-white p-5 rounded-2xl shadow">
+          <div className="rounded-2xl bg-white p-5 shadow">
             <div className="text-sm text-slate-500">Средний чек</div>
             <div className="text-2xl font-bold">1 890 ₽</div>
           </div>
-
-          <div className="bg-white p-5 rounded-2xl shadow">
+          <div className="rounded-2xl bg-white p-5 shadow">
             <div className="text-sm text-slate-500">Точек в риске</div>
             <div className="text-2xl font-bold">2</div>
           </div>
         </div>
 
-        {/* Stores Table */}
-        <div className="bg-white rounded-2xl shadow p-5">
-          <h2 className="text-xl font-semibold mb-4">Магазины</h2>
-
+        <div className="rounded-2xl bg-white p-5 shadow">
+          <h2 className="mb-4 text-xl font-semibold">Магазины</h2>
           <div className="space-y-3">
             {stores.map((s) => (
-              <div
-                key={s.name}
-                className="grid grid-cols-5 items-center bg-slate-50 p-4 rounded-xl"
-              >
+              <div key={s.name} className="grid grid-cols-1 items-center gap-2 rounded-xl bg-slate-50 p-4 md:grid-cols-5">
                 <div className="font-medium">{s.name}</div>
                 <div>{s.revenue}</div>
                 <div>{s.plan}%</div>
@@ -247,25 +238,21 @@ export function ManagerDashboardMockup() {
           </div>
         </div>
 
-        {/* Alerts + Employees */}
-        <div className="grid grid-cols-3 gap-6">
-
-          {/* Alerts */}
-          <div className="bg-white p-5 rounded-2xl shadow">
-            <h2 className="font-semibold mb-3">Сигналы</h2>
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <h2 className="mb-3 font-semibold">Сигналы</h2>
             <div className="space-y-2">
               {alerts.map((a) => (
-                <div className="bg-slate-50 p-3 rounded-xl text-sm">{a}</div>
+                <div key={a} className="rounded-xl bg-slate-50 p-3 text-sm">{a}</div>
               ))}
             </div>
           </div>
 
-          {/* Top */}
-          <div className="bg-white p-5 rounded-2xl shadow">
-            <h2 className="font-semibold mb-3">Топ продавцов</h2>
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <h2 className="mb-3 font-semibold">Топ продавцов</h2>
             <div className="space-y-2">
               {employeesTop.map((e) => (
-                <div className="flex justify-between bg-slate-50 p-3 rounded-xl">
+                <div key={`${e.name}-${e.store}`} className="flex justify-between rounded-xl bg-slate-50 p-3">
                   <div>
                     <div className="font-medium">{e.name}</div>
                     <div className="text-xs text-slate-500">{e.store}</div>
@@ -276,12 +263,11 @@ export function ManagerDashboardMockup() {
             </div>
           </div>
 
-          {/* Outsiders */}
-          <div className="bg-white p-5 rounded-2xl shadow">
-            <h2 className="font-semibold mb-3">Требуют внимания</h2>
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <h2 className="mb-3 font-semibold">Требуют внимания</h2>
             <div className="space-y-2">
               {employeesLow.map((e) => (
-                <div className="flex justify-between bg-rose-50 p-3 rounded-xl">
+                <div key={`${e.name}-${e.store}`} className="flex justify-between rounded-xl bg-rose-50 p-3">
                   <div>
                     <div className="font-medium">{e.name}</div>
                     <div className="text-xs text-slate-500">{e.store}</div>
@@ -291,10 +277,125 @@ export function ManagerDashboardMockup() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
+export function HRDashboardMockup() {
+  const alerts = [
+    '3 сотрудника в риске увольнения (адаптация)',
+    '2 сотрудника не прошли обучение',
+    '5 сотрудников не подтвердили ознакомление',
+  ];
+
+  const onboarding = [
+    { name: 'Алина', day: '3 день', status: 'Адаптация' },
+    { name: 'Максим', day: '7 день', status: 'Обучение' },
+    { name: 'Игорь', day: '2 день', status: 'Новый сотрудник' },
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-100 p-6 text-slate-900">
+      <div className="mx-auto max-w-7xl space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">HR Дашборд</h1>
+          <div className="text-slate-500">Обзор сотрудников и процессов</div>
         </div>
 
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <div className="text-sm text-slate-500">Всего сотрудников</div>
+            <div className="text-2xl font-bold">87</div>
+          </div>
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <div className="text-sm text-slate-500">Новые сотрудники</div>
+            <div className="text-2xl font-bold">6</div>
+          </div>
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <div className="text-sm text-slate-500">Текучка за месяц</div>
+            <div className="text-2xl font-bold">12%</div>
+          </div>
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <div className="text-sm text-slate-500">Средний срок работы</div>
+            <div className="text-2xl font-bold">4.2 мес</div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <h2 className="mb-3 font-semibold">Требует внимания</h2>
+            <div className="space-y-2">
+              {alerts.map((a) => (
+                <div key={a} className="rounded-xl bg-slate-50 p-3 text-sm">{a}</div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-white p-5 shadow xl:col-span-2">
+            <h2 className="mb-3 font-semibold">Новые сотрудники</h2>
+            <div className="space-y-3">
+              {onboarding.map((e) => (
+                <div key={`${e.name}-${e.day}`} className="flex justify-between rounded-xl bg-slate-50 p-3">
+                  <div>
+                    <div className="font-medium">{e.name}</div>
+                    <div className="text-xs text-slate-500">{e.day}</div>
+                  </div>
+                  <div className="text-sm font-medium">{e.status}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <h2 className="mb-3 font-semibold">Воронка сотрудников</h2>
+            <div className="space-y-2 text-sm">
+              <div>Кандидаты: 24</div>
+              <div>Вышли на работу: 9</div>
+              <div>Прошли адаптацию: 6</div>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <h2 className="mb-3 font-semibold">Текучка</h2>
+            <div className="space-y-2 text-sm">
+              <div>Уволилось: 8</div>
+              <div>Активные: 87</div>
+              <div>Текучка: 12%</div>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-white p-5 shadow">
+            <h2 className="mb-3 font-semibold">Развитие</h2>
+            <div className="space-y-2 text-sm">
+              <div>Junior: 23</div>
+              <div>Middle: 41</div>
+              <div>Senior: 23</div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  );
+}
+
+export default function AppMockup() {
+  const [view, setView] = React.useState('hr');
+
+  const buttonClass = (active) =>
+    `rounded px-3 py-1 text-sm ${active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-900'}`;
+
+  return (
+    <div>
+      <div className="flex gap-3 border-b bg-white p-4">
+        <button onClick={() => setView('seller')} className={buttonClass(view === 'seller')}>Seller</button>
+        <button onClick={() => setView('manager')} className={buttonClass(view === 'manager')}>Manager</button>
+        <button onClick={() => setView('hr')} className={buttonClass(view === 'hr')}>HR</button>
+      </div>
+      {view === 'seller' && <SellerAppMockup />}
+      {view === 'manager' && <ManagerDashboardMockup />}
+      {view === 'hr' && <HRDashboardMockup />}
     </div>
   );
 }

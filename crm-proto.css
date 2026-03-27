@@ -132,17 +132,12 @@ body {
   background: var(--surface);
 }
 
-.topbar__brand {
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin-right: auto;
-}
-
 .topbar__user {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
+  margin-right: auto;
 }
 
 .topbar__name {
@@ -354,6 +349,342 @@ body {
   font-size: 1.05rem;
   font-weight: 600;
   color: #c2410c;
+}
+
+/* HR dashboard */
+#panel-dashboard.hr-dash {
+  max-width: 100%;
+}
+
+.hr-dash__kicker {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+}
+
+.hr-dash__kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hr-dash__row {
+  margin-bottom: 20px;
+}
+
+.hr-dash__row:last-of-type {
+  margin-bottom: 0;
+}
+
+.hr-dash__row--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 20px;
+}
+
+.hr-dash__row--triple {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.hr-dash__alerts {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hr-dash__alert-item {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.hr-dash__alert-item--warn {
+  border-color: rgba(220, 38, 38, 0.35);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.hr-dash__onboarding {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hr-dash__onboarding-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.hr-dash__onboarding-name {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.hr-dash__onboarding-meta {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+}
+
+.hr-dash__onboarding-status {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--accent-dim);
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.hr-dash__stat-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-size: 0.92rem;
+}
+
+.hr-dash__stat-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hr-dash__stat-list li:first-child {
+  padding-top: 0;
+}
+
+.hr-dash__stat-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.hr-dash__stat-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.hr-dash__card--full {
+  margin-top: 20px;
+}
+
+.hr-dash__hint {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+}
+
+.hr-dash__stat-list--compact {
+  margin-top: 10px;
+}
+
+@media (max-width: 1100px) {
+  .hr-dash__kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hr-dash__row--split {
+    grid-template-columns: 1fr;
+  }
+
+  .hr-dash__row--triple {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .hr-dash__kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Manager dashboard */
+#panel-dashboard.manager-dash {
+  max-width: 100%;
+}
+
+.manager-dash__kicker {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+}
+
+.manager-dash__rating-inline {
+  font-weight: 600;
+  color: #b45309;
+}
+
+.manager-dash__kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.manager-dash__stores-wrap {
+  margin-bottom: 20px;
+}
+
+.manager-dash__store-table {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.manager-dash__store-row {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 1.2fr) repeat(3, minmax(4.5rem, 0.85fr)) minmax(5rem, 0.95fr);
+  gap: 10px 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+  min-width: min(100%, 540px);
+}
+
+.manager-dash__store-row--head {
+  background: transparent;
+  border: none;
+  padding: 0 14px 2px;
+  min-width: min(100%, 540px);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.manager-dash__store-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.manager-dash__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.manager-dash__badge--ok {
+  color: var(--success);
+  background: rgba(13, 159, 76, 0.1);
+  border: 1px solid rgba(13, 159, 76, 0.28);
+}
+
+.manager-dash__badge--risk {
+  color: #b45309;
+  background: rgba(217, 119, 6, 0.12);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.manager-dash__badge--norm {
+  color: var(--muted);
+  background: var(--hover-surface);
+  border: 1px solid var(--border);
+}
+
+.manager-dash__badge--bad {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.manager-dash__row {
+  margin-bottom: 20px;
+}
+
+.manager-dash__row:last-child {
+  margin-bottom: 0;
+}
+
+.manager-dash__row--triple {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.manager-dash__row--split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.manager-dash__low-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.manager-dash__low-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(220, 38, 38, 0.28);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.manager-dash__low-pct {
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #dc2626;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1100px) {
+  .manager-dash__kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .manager-dash__row--triple {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-dash__row--split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .manager-dash__kpis {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Seller dashboard: план, метрики, прогноз (тема CRM) */

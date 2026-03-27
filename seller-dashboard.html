@@ -8,7 +8,6 @@
 </head>
 <body class="page-dashboard">
   <header class="topbar">
-    <div class="topbar__brand">CRM</div>
     <div class="topbar__user">
       <span class="topbar__name" id="sellerName">Иван Петров</span>
     </div>
@@ -160,51 +159,10 @@
         <aside class="seller-dash__aside">
           <article class="dash-card seller-rating-mini">
             <h3 class="seller-plan-card__title">Место в рейтинге</h3>
-            <ul class="seller-rating-mini__list">
-              <li class="seller-rating-mini__row">
-                <div class="seller-rating-mini__who">
-                  <span class="seller-rating-mini__place" aria-hidden="true">#1</span>
-                  <div>
-                    <p class="seller-rating-mini__name">Алина</p>
-                    <p class="muted seller-rating-mini__tt">ТТ Мурманск</p>
-                  </div>
-                </div>
-                <span class="seller-rating-mini__pct" aria-label="4.89 из 5">★ 4.89</span>
-              </li>
-              <li class="seller-rating-mini__row">
-                <div class="seller-rating-mini__who">
-                  <span class="seller-rating-mini__place" aria-hidden="true">#2</span>
-                  <div>
-                    <p class="seller-rating-mini__name">Максим</p>
-                    <p class="muted seller-rating-mini__tt">ТТ Североморск</p>
-                  </div>
-                </div>
-                <span class="seller-rating-mini__pct" aria-label="4.76 из 5">★ 4.76</span>
-              </li>
-              <li class="seller-rating-mini__row">
-                <div class="seller-rating-mini__who">
-                  <span class="seller-rating-mini__place" aria-hidden="true">#3</span>
-                  <div>
-                    <p class="seller-rating-mini__name">Дина</p>
-                    <p class="muted seller-rating-mini__tt">ТТ Кандалакша</p>
-                  </div>
-                </div>
-                <span class="seller-rating-mini__pct" aria-label="4.71 из 5">★ 4.71</span>
-              </li>
-              <li class="seller-rating-mini__row seller-rating-mini__row--me">
-                <div class="seller-rating-mini__who">
-                  <span class="seller-rating-mini__place" aria-hidden="true">#4</span>
-                  <div>
-                    <p class="seller-rating-mini__name">Вы</p>
-                    <p class="muted seller-rating-mini__tt">ТТ Апатиты</p>
-                  </div>
-                </div>
-                <span class="seller-rating-mini__pct" aria-label="4.58 из 5">★ 4.58</span>
-              </li>
-            </ul>
+            <ul class="seller-rating-mini__list" id="sellerRatingMiniList"></ul>
             <div class="seller-rating-gap">
               <p class="seller-rating-gap__label muted">До 3 места осталось, баллов</p>
-              <p class="seller-rating-gap__val">0.13</p>
+              <p class="seller-rating-gap__val" id="sellerRatingGapVal">—</p>
             </div>
           </article>
         </aside>
@@ -252,6 +210,8 @@
   <script src="crm-rating.js"></script>
   <script>
     (function () {
+      var SELLER_IN_RATING = 'Иван Петров';
+
       function buildRatingBoard() {
         var people = window.CRM.getRatingPeople();
 
@@ -261,7 +221,7 @@
 
         var myPlace = 0;
         for (var i = 0; i < people.length; i++) {
-          if (people[i].name === 'Иван Петров') {
+          if (people[i].name === SELLER_IN_RATING) {
             myPlace = i + 1;
             break;
           }
@@ -272,7 +232,7 @@
         for (var j = 0; j < people.length; j++) {
           var p = people[j];
           var li = document.createElement('li');
-          li.className = 'rating-list__row' + (p.name === 'Иван Петров' ? ' rating-list__row--me' : '');
+          li.className = 'rating-list__row' + (p.name === SELLER_IN_RATING ? ' rating-list__row--me' : '');
           li.innerHTML =
             '<span class="rating-list__name">' +
             (j + 1) +
@@ -285,7 +245,91 @@
         }
       }
 
+      function buildSellerRatingMini() {
+        var people = window.CRM.getRatingPeople();
+        var miniEl = document.getElementById('sellerRatingMiniList');
+        var gapValEl = document.getElementById('sellerRatingGapVal');
+        if (!miniEl || people.length < 4) return;
+
+        var myIdx = -1;
+        for (var i = 0; i < people.length; i++) {
+          if (people[i].name === SELLER_IN_RATING) {
+            myIdx = i;
+            break;
+          }
+        }
+        if (myIdx < 0) myIdx = 0;
+
+        var myPlace = myIdx + 1;
+        var rows = [];
+
+        if (myPlace <= 4) {
+          for (var r = 0; r < 4; r++) {
+            rows.push({
+              place: r + 1,
+              person: people[r],
+              isMe: people[r].name === SELLER_IN_RATING
+            });
+          }
+        } else {
+          rows.push({ place: 1, person: people[0], isMe: false });
+          rows.push({ place: 2, person: people[1], isMe: false });
+          rows.push({ place: 3, person: people[2], isMe: false });
+          rows.push({ place: myPlace, person: people[myIdx], isMe: true });
+        }
+
+        miniEl.innerHTML = '';
+        for (var k = 0; k < rows.length; k++) {
+          var item = rows[k];
+          var p = item.person;
+          var li = document.createElement('li');
+          li.className = 'seller-rating-mini__row' + (item.isMe ? ' seller-rating-mini__row--me' : '');
+
+          var who = document.createElement('div');
+          who.className = 'seller-rating-mini__who';
+
+          var placeSpan = document.createElement('span');
+          placeSpan.className = 'seller-rating-mini__place';
+          placeSpan.setAttribute('aria-hidden', 'true');
+          placeSpan.textContent = '#' + item.place;
+
+          var nameWrap = document.createElement('div');
+          var nameP = document.createElement('p');
+          nameP.className = 'seller-rating-mini__name';
+          nameP.textContent = item.isMe ? 'Вы' : p.name;
+          var subP = document.createElement('p');
+          subP.className = 'muted seller-rating-mini__tt';
+          subP.textContent = item.isMe ? 'ТТ Апатиты' : 'Месячный рейтинг';
+          nameWrap.appendChild(nameP);
+          nameWrap.appendChild(subP);
+
+          who.appendChild(placeSpan);
+          who.appendChild(nameWrap);
+
+          var pct = document.createElement('span');
+          pct.className = 'seller-rating-mini__pct';
+          pct.setAttribute('aria-label', p.rating.toFixed(2) + ' из 5');
+          pct.textContent = '★ ' + p.rating.toFixed(2);
+
+          li.appendChild(who);
+          li.appendChild(pct);
+          miniEl.appendChild(li);
+        }
+
+        if (gapValEl) {
+          if (myPlace <= 3) {
+            gapValEl.textContent = '—';
+          } else {
+            var thirdRating = people[2].rating;
+            var mineRating = people[myIdx].rating;
+            var diff = Math.max(0, thirdRating - mineRating);
+            gapValEl.textContent = diff.toFixed(2);
+          }
+        }
+      }
+
       buildRatingBoard();
+      buildSellerRatingMini();
 
       var map = {
         dashboard: 'panel-dashboard',
