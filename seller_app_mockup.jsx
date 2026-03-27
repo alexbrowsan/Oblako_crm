@@ -3,16 +3,16 @@ export default function SellerAppMockup() {
     { name: 'Выручка', fact: '124 500 ₽', plan: '200 000 ₽', left: '75 500 ₽', progress: 62 },
     { name: 'Средний чек', fact: '1 820 ₽', plan: '2 100 ₽', left: '280 ₽', progress: 86 },
     { name: 'Глубина чека', fact: '2.4', plan: '3.0', left: '0.6', progress: 80 },
-    { name: 'Оцифровка', fact: '18', plan: '22', left: '4 клиента', progress: 82 },
+    { name: 'Оцифрованные клиенты', fact: '18', plan: '22', left: '4 клиента', progress: 82 },
     { name: 'Красные ценники', fact: '14 200 ₽', plan: '18 000 ₽', left: '3 800 ₽', progress: 79 },
-    { name: 'Доп. продажи', fact: '9 400 ₽', plan: '12 000 ₽', left: '2 600 ₽', progress: 78 },
+    { name: 'Синие ценники', fact: '9 400 ₽', plan: '12 000 ₽', left: '2 600 ₽', progress: 78 },
   ];
 
   const rating = [
-    { place: 1, name: 'Алина', point: 'ТТ Мурманск', value: '96%' },
-    { place: 2, name: 'Максим', point: 'ТТ Североморск', value: '91%' },
-    { place: 3, name: 'Дина', point: 'ТТ Кандалакша', value: '89%' },
-    { place: 4, name: 'Вы', point: 'ТТ Апатиты', value: '84%', me: true },
+    { place: 1, name: 'Алина', point: 'ТТ Мурманск', value: '★ 4.89' },
+    { place: 2, name: 'Максим', point: 'ТТ Североморск', value: '★ 4.76' },
+    { place: 3, name: 'Дина', point: 'ТТ Кандалакша', value: '★ 4.71' },
+    { place: 4, name: 'Вы', point: 'ТТ Апатиты', value: '★ 4.58', me: true },
   ];
 
   const tasks = [
@@ -64,7 +64,7 @@ export default function SellerAppMockup() {
                   <div className="mt-4 h-3 rounded-full bg-slate-100">
                     <div className="h-3 rounded-full bg-slate-900" style={{ width: `${m.progress}%` }} />
                   </div>
-                  <div className="mt-2 text-sm text-slate-500">Выполнение: {m.progress}%</div>
+                  <div className="mt-2 text-sm text-slate-500">Факт: {m.fact}</div>
                 </div>
               ))}
             </div>
@@ -92,8 +92,8 @@ export default function SellerAppMockup() {
                 ))}
               </div>
               <div className="mt-4 rounded-2xl bg-slate-900 p-4 text-white">
-                <div className="text-sm opacity-80">До 3 места осталось</div>
-                <div className="mt-1 text-2xl font-bold">5%</div>
+                <div className="text-sm opacity-80">До 3 места осталось, баллов</div>
+                <div className="mt-1 text-2xl font-bold">0.13</div>
               </div>
             </div>
 

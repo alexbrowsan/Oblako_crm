@@ -9,7 +9,6 @@
   --accent-dim: #1d4ed8;
   --success: #0d9f4c;
   --hover-surface: rgba(15, 23, 42, 0.06);
-  --chip-bg: rgba(15, 23, 42, 0.05);
   --radius: 10px;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -350,6 +349,13 @@ body {
   color: var(--success);
 }
 
+.task-status-warn {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #c2410c;
+}
+
 /* Seller dashboard: план, метрики, прогноз (тема CRM) */
 #panel-dashboard.seller-dash {
   max-width: 100%;
@@ -402,9 +408,6 @@ body {
 }
 
 .seller-dash__aside {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   min-width: 0;
 }
 
@@ -511,109 +514,6 @@ body {
   font-size: 0.8rem;
 }
 
-.seller-dash__bottom-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.seller-tasks-preview__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.seller-tasks-preview__btn {
-  flex-shrink: 0;
-}
-
-.seller-task-chips {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.seller-task-chip {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.seller-task-chip__title {
-  margin: 0;
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-
-.seller-task-chip__meta {
-  margin: 4px 0 0;
-  font-size: 0.8rem;
-}
-
-.seller-task-chip__status {
-  flex-shrink: 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 999px;
-  color: var(--muted);
-  background: var(--chip-bg);
-  border: 1px solid var(--border);
-}
-
-.seller-store-card__photo {
-  margin-top: 14px;
-  height: 140px;
-  border-radius: var(--radius);
-  border: 1px dashed var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  background: var(--bg);
-}
-
-.seller-store-card__grid {
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.seller-store-card__cell {
-  padding: 12px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.seller-store-card__cell--wide {
-  grid-column: 1 / -1;
-}
-
-.seller-store-card__cell-label {
-  margin: 0;
-  font-size: 0.75rem;
-}
-
-.seller-store-card__cell-val {
-  margin: 6px 0 0;
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
 .seller-rating-mini__list {
   list-style: none;
   margin: 14px 0 0;
@@ -675,6 +575,8 @@ body {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   font-size: 0.95rem;
+  color: #b45309;
+  white-space: nowrap;
 }
 
 .seller-rating-gap {
@@ -697,44 +599,6 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.seller-income-list {
-  margin: 14px 0 0;
-  padding: 0;
-}
-
-.seller-income-list__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  padding: 8px 0;
-  font-size: 0.9rem;
-}
-
-.seller-income-list__row dt {
-  margin: 0;
-  color: var(--muted);
-  font-weight: 400;
-}
-
-.seller-income-list__row dd {
-  margin: 0;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.seller-income-list__row--total {
-  margin-top: 6px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-  font-size: 1rem;
-}
-
-.seller-income-list__row--total dt {
-  color: var(--text);
-  font-weight: 600;
-}
-
 @media (max-width: 960px) {
   .seller-dash__columns {
     grid-template-columns: 1fr;
@@ -747,10 +611,6 @@ body {
   }
 
   .seller-metrics-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .seller-dash__bottom-row {
     grid-template-columns: 1fr;
   }
 }
