@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM — категорийный менеджер</title>
+  <link rel="stylesheet" href="crm-proto.css" />
+</head>
+<body class="page-dashboard">
+  <header class="topbar">
+    <div class="topbar__user">
+      <span class="topbar__name" id="categoryManagerName">Алина Геранина</span>
+    </div>
+    <a class="link-exit" href="index.html">Выйти</a>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Разделы категорийного менеджера">
+    <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" data-tab="dashboard">Дашборд</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="budgets">Бюджеты</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="requests">Заявки</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="messages">Сообщения</button>
+  </nav>
+
+  <div class="cat-dash__month-strip" id="catMonthStrip" role="group" aria-label="Месяц отчёта">
+    <span class="cat-dash__month-strip-label muted">Месяц</span>
+    <button type="button" class="btn btn--secondary cat-dash__month-btn" data-cat-month="feb" aria-pressed="false">Февраль</button>
+    <button type="button" class="btn btn--primary cat-dash__month-btn" data-cat-month="mar" aria-pressed="true">Март</button>
+    <button type="button" class="btn btn--secondary cat-dash__month-btn" data-cat-month="apr" aria-pressed="false">Апрель</button>
+  </div>
+
+  <main class="panel">
+    <section class="tab-panel is-visible cat-dash" id="panel-dashboard" role="tabpanel">
+      <div class="cat-dash__title-row">
+        <div>
+          <h2 id="dashboardName">Алина Геранина</h2>
+          <p class="muted cat-dash__kicker" id="catDashKicker"></p>
+        </div>
+      </div>
+
+      <div class="cat-dash__kpis" id="catDashKpis"></div>
+
+      <div class="cat-dash__plan-layout">
+        <article class="dash-card cat-dash__plan-main">
+          <h3 class="seller-plan-card__title">Монитор план / факт</h3>
+          <div class="cat-dash__table-wrap">
+            <table class="cat-dash__table">
+              <thead>
+                <tr>
+                  <th>Категория</th>
+                  <th>Торговая точка</th>
+                  <th>Доступность</th>
+                  <th>Неликвид</th>
+                  <th>План</th>
+                  <th>Факт</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody id="catDashTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <aside class="cat-dash__plan-aside">
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title">Требует внимания</h3>
+            <ul class="hr-dash__alerts" id="catDashAlerts"></ul>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tab-panel cat-dash" id="panel-budgets" role="tabpanel" hidden>
+      <h2>Бюджеты</h2>
+      <p class="muted cat-dash__kicker" id="catBudgetKicker">Лимиты закупок и дебиторка по категориям</p>
+
+      <div class="cat-dash__budget-layout">
+        <div class="cat-dash__budget-main">
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title">Бюджеты по категориям</h3>
+            <div class="cat-dash__budget-rows" id="catBudgetRows"></div>
+          </article>
+        </div>
+        <aside class="cat-dash__budget-aside">
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title" id="catBudgetSummaryTitle">Сводка недели</h3>
+            <ul class="hr-dash__stat-list" id="catBudgetSummary"></ul>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tab-panel cat-dash" id="panel-requests" role="tabpanel" hidden>
+      <h2>Заявки</h2>
+      <p class="muted cat-dash__kicker" id="catRequestKicker">Заявки от торговых точек сети</p>
+
+      <div class="cat-dash__request-layout">
+        <div class="cat-dash__request-main">
+          <article class="dash-card">
+            <div class="cat-dash__request-head">
+              <div>
+                <h3 class="seller-plan-card__title">Заявки от магазинов</h3>
+                <p class="muted cat-dash__card-intro">Статус и ответственный</p>
+              </div>
+            </div>
+            <ul class="cat-dash__request-list" id="catRequestList"></ul>
+          </article>
+        </div>
+        <aside class="cat-dash__request-aside">
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title">Свод по заявкам</h3>
+            <div class="cat-dash__request-stats" id="catRequestStats"></div>
+          </article>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tab-panel cat-dash" id="panel-messages" role="tabpanel" hidden>
+      <h2>Сообщения</h2>
+      <p class="muted cat-dash__kicker">Уведомления от коллег и системы</p>
+
+      <div class="cat-dash__messages-layout">
+        <article class="dash-card cat-dash__messages-main">
+          <h3 class="seller-plan-card__title">Входящие</h3>
+          <ul class="cat-dash__msg-list" id="catMessageList"></ul>
+        </article>
+        <aside class="cat-dash__messages-aside">
+          <article class="dash-card">
+            <h3 class="seller-plan-card__title">Быстрые действия</h3>
+            <div class="cat-dash__msg-actions">
+              <button type="button" class="btn btn--primary">Написать</button>
+              <button type="button" class="btn btn--secondary">Пометить всё прочитанным</button>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var STATUS = {
+        bad: { label: 'Проблема', cls: 'cat-dash__badge--bad' },
+        ok: { label: 'Норма', cls: 'cat-dash__badge--ok' },
+        risk: { label: 'Под риском', cls: 'cat-dash__badge--risk' }
+      };
+
+      var REQ_STATUS = {
+        work: { label: 'В работе', cls: 'cat-dash__badge--work' },
+        wait: { label: 'Ожидает', cls: 'cat-dash__badge--wait' },
+        confirmed: { label: 'Заказ подтверждён', cls: 'cat-dash__badge--ok' }
+      };
+
+      function formatRub(n) {
+        return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + '\u00a0₽';
+      }
+
+      var activeMonth = 'mar';
+
+      var MONTH_META = {
+        feb: { label: 'Февраль 2026' },
+        mar: { label: 'Март 2026' },
+        apr: { label: 'Апрель 2026' }
+      };
+
+      function dashScopeAll() {
+        return {
+          scopeKicker: 'Все категории • ТТ Мурманской области'
+        };
+      }
+
+      var DASH_DATA = {
+        feb: {
+          kpis: [
+            { title: 'Доступность товара', value: '88%' },
+            { title: 'Доля неликвида', value: '14%' },
+            { title: 'План по выручке', value: '82%' },
+            { title: 'Валовый доход', value: '76%' }
+          ],
+          rows: [
+            { category: 'Жевательный табак', store: 'ТТ Мурманск', avail: 94, dead: 7, plan: 680000, fact: 672000, status: 'ok' },
+            { category: 'Жидкости', store: 'ТТ Кандалакша', avail: 86, dead: 11, plan: 390000, fact: 338000, status: 'risk' },
+            { category: 'кальяны', store: 'ТТ Мончегорск', avail: 90, dead: 8, plan: 265000, fact: 248000, status: 'risk' },
+            { category: 'Испарители', store: 'ТТ Североморск', avail: 72, dead: 19, plan: 310000, fact: 268000, status: 'bad' },
+            { category: 'одноразовые эл. сигареты', store: 'ТТ Апатиты', avail: 82, dead: 15, plan: 480000, fact: 405000, status: 'bad' },
+            { category: 'Уголь', store: 'ТТ Мурманск', avail: 95, dead: 6, plan: 195000, fact: 186000, status: 'ok' },
+            { category: 'табак для кальяна', store: 'ТТ Кандалакша', avail: 88, dead: 10, plan: 220000, fact: 205000, status: 'risk' }
+          ],
+          alerts: [
+            { text: 'Февраль: Апатиты — одноразовые эл. сигареты ниже целевой доступности', warn: true },
+            { text: 'Североморск — рост неликвида по испарителям', warn: false }
+          ]
+        },
+        mar: {
+          kpis: [
+            { title: 'Доступность товара', value: '91%' },
+            { title: 'Доля неликвида', value: '12%' },
+            { title: 'План по выручке', value: '86%' },
+            { title: 'Валовый доход', value: '79%' }
+          ],
+          rows: [
+            { category: 'Жевательный табак', store: 'ТТ Мурманск', avail: 96, dead: 6, plan: 700000, fact: 710000, status: 'ok' },
+            { category: 'Жидкости', store: 'ТТ Кандалакша', avail: 88, dead: 10, plan: 400000, fact: 350000, status: 'risk' },
+            { category: 'кальяны', store: 'ТТ Мончегорск', avail: 92, dead: 7, plan: 280000, fact: 262000, status: 'risk' },
+            { category: 'Испарители', store: 'ТТ Североморск', avail: 75, dead: 18, plan: 325000, fact: 282000, status: 'bad' },
+            { category: 'одноразовые эл. сигареты', store: 'ТТ Апатиты', avail: 84, dead: 14, plan: 500000, fact: 420000, status: 'bad' },
+            { category: 'Уголь', store: 'ТТ Мурманск', avail: 97, dead: 5, plan: 205000, fact: 198000, status: 'ok' },
+            { category: 'табак для кальяна', store: 'ТТ Кандалакша', avail: 90, dead: 9, plan: 235000, fact: 218000, status: 'risk' }
+          ],
+          alerts: [
+            { text: 'ТТ Апатиты — низкая доступность по одноразовым эл. сигаретам', warn: true },
+            { text: 'ТТ Североморск — высокая доля неликвида (испарители)', warn: false },
+            { text: 'Жидкости — отставание от плана по выручке', warn: false }
+          ]
+        },
+        apr: {
+          kpis: [
+            { title: 'Доступность товара', value: '93%' },
+            { title: 'Доля неликвида', value: '10%' },
+            { title: 'План по выручке', value: '90%' },
+            { title: 'Валовый доход', value: '84%' }
+          ],
+          rows: [
+            { category: 'Жевательный табак', store: 'ТТ Мурманск', avail: 97, dead: 5, plan: 720000, fact: 735000, status: 'ok' },
+            { category: 'Жидкости', store: 'ТТ Кандалакша', avail: 91, dead: 8, plan: 420000, fact: 401000, status: 'ok' },
+            { category: 'кальяны', store: 'ТТ Мончегорск', avail: 94, dead: 6, plan: 295000, fact: 288000, status: 'ok' },
+            { category: 'Испарители', store: 'ТТ Североморск', avail: 80, dead: 14, plan: 330000, fact: 312000, status: 'risk' },
+            { category: 'одноразовые эл. сигареты', store: 'ТТ Апатиты', avail: 88, dead: 11, plan: 520000, fact: 498000, status: 'ok' },
+            { category: 'Уголь', store: 'ТТ Мурманск', avail: 98, dead: 4, plan: 218000, fact: 212000, status: 'ok' },
+            { category: 'табак для кальяна', store: 'ТТ Кандалакша', avail: 92, dead: 7, plan: 248000, fact: 239000, status: 'ok' }
+          ],
+          alerts: [
+            { text: 'Апрель: Североморск — испарители чуть ниже плана', warn: false },
+            { text: 'Проверить остатки кальянов и угля к выходным', warn: false }
+          ]
+        }
+      };
+
+      var BUDGET_BY_MONTH = {
+        feb: {
+          rows: [
+            { category: 'одноразовые эл. сигареты', budget: 1850000, spent: 1380000, left: 470000, debt: 335000 },
+            { category: 'Жевательный табак', budget: 3200000, spent: 2750000, left: 450000, debt: 560000 },
+            { category: 'Жидкости', budget: 1500000, spent: 980000, left: 520000, debt: 140000 }
+          ],
+          summary: [
+            { label: 'Общий бюджет', value: 6550000 },
+            { label: 'Потрачено', value: 5110000 },
+            { label: 'Остаток', value: 1440000 },
+            { label: 'Всего дебиторки', value: 1035000 }
+          ],
+        },
+        mar: {
+          rows: [
+            { category: 'одноразовые эл. сигареты', budget: 2000000, spent: 1420000, left: 580000, debt: 310000 },
+            { category: 'Жевательный табак', budget: 3400000, spent: 2900000, left: 500000, debt: 540000 },
+            { category: 'Жидкости', budget: 1600000, spent: 1050000, left: 550000, debt: 120000 }
+          ],
+          summary: [
+            { label: 'Общий бюджет', value: 7000000 },
+            { label: 'Потрачено', value: 5370000 },
+            { label: 'Остаток', value: 1630000 },
+            { label: 'Всего дебиторки', value: 970000 }
+          ],
+        },
+        apr: {
+          rows: [
+            { category: 'одноразовые эл. сигареты', budget: 2100000, spent: 1480000, left: 620000, debt: 280000 },
+            { category: 'Жевательный табак', budget: 3500000, spent: 2980000, left: 520000, debt: 510000 },
+            { category: 'Жидкости', budget: 1650000, spent: 1080000, left: 570000, debt: 105000 }
+          ],
+          summary: [
+            { label: 'Общий бюджет', value: 7250000 },
+            { label: 'Потрачено', value: 5540000 },
+            { label: 'Остаток', value: 1710000 },
+            { label: 'Всего дебиторки', value: 895000 }
+          ],
+        }
+      };
+
+      var REQUEST_BY_MONTH = {
+        feb: [
+          { id: '#201', store: 'ТТ Мурманск', title: 'Табак Must Have', from: 'управляющий', status: 'confirmed', assignee: 'закупки' },
+          { id: '#202', store: 'ТТ Апатиты', title: 'Вейпы HQD', from: 'продавец', status: 'wait', assignee: 'склад' },
+          { id: '#203', store: 'ТТ Кандалакша', title: 'Жидкость 30 ml', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#204', store: 'ТТ Мончегорск', title: 'Уголь', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' }
+        ],
+        mar: [
+          { id: '#241', store: 'ТТ Апатиты', title: 'HQD 1200 Blueberry', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#242', store: 'ТТ Мурманск', title: 'Табак Darkside Core', from: 'управляющий', status: 'wait', assignee: 'склад' },
+          { id: '#243', store: 'ТТ Кандалакша', title: 'Одноразки Lost Mary', from: 'продавец', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#244', store: 'ТТ Мончегорск', title: 'Уголь кокосовый', from: 'управляющий', status: 'confirmed', assignee: 'закупки' },
+          { id: '#245', store: 'ТТ Североморск', title: 'ELF BAR 1500', from: 'управляющий', status: 'wait', assignee: 'склад' },
+          { id: '#246', store: 'ТТ Апатиты', title: 'Уголь для кальяна 1кг', from: 'продавец', status: 'work', assignee: 'категорийный менеджер' }
+        ],
+        apr: [
+          { id: '#301', store: 'ТТ Мурманск', title: 'Вейпы новая линейка', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#302', store: 'ТТ Апатиты', title: 'Табак Spectrum', from: 'продавец', status: 'wait', assignee: 'склад' },
+          { id: '#303', store: 'ТТ Североморск', title: 'Снеки премиум', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#304', store: 'ТТ Кандалакша', title: 'Жидкости ICE', from: 'продавец', status: 'confirmed', assignee: 'закупки' },
+          { id: '#305', store: 'ТТ Мончегорск', title: 'Кальянные чаши', from: 'управляющий', status: 'wait', assignee: 'склад' }
+        ]
+      };
+
+      function getDashView() {
+        var base = DASH_DATA[activeMonth];
+        return Object.assign({}, base, dashScopeAll());
+      }
+
+      function renderKpis(container, kpis) {
+        var html = kpis
+          .map(function (k) {
+            return (
+              '<article class="dash-card">' +
+              '<h3 class="dash-card__label">' +
+              k.title +
+              '</h3>' +
+              '<p class="dash-card__value">' +
+              k.value +
+              '</p>' +
+              '</article>'
+            );
+          })
+          .join('');
+        container.innerHTML = html;
+      }
+
+      function renderPlanTable(tbody, rows) {
+        var html = rows
+          .map(function (r) {
+            var st = STATUS[r.status] || STATUS.risk;
+            return (
+              '<tr>' +
+              '<td class="cat-dash__td-strong">' +
+              r.category +
+              '</td>' +
+              '<td>' +
+              r.store +
+              '</td>' +
+              '<td>' +
+              r.avail +
+              '%</td>' +
+              '<td>' +
+              r.dead +
+              '%</td>' +
+              '<td>' +
+              formatRub(r.plan) +
+              '</td>' +
+              '<td>' +
+              formatRub(r.fact) +
+              '</td>' +
+              '<td><span class="cat-dash__badge ' +
+              st.cls +
+              '">' +
+              st.label +
+              '</span></td>' +
+              '</tr>'
+            );
+          })
+          .join('');
+        tbody.innerHTML = html;
+      }
+
+      function renderAlerts(ul, items) {
+        ul.innerHTML = items
+          .map(function (a) {
+            var cls = 'hr-dash__alert-item' + (a.warn ? ' hr-dash__alert-item--warn' : '');
+            return '<li class="' + cls + '">' + a.text + '</li>';
+          })
+          .join('');
+      }
+
+      function renderCatDashboard() {
+        var v = getDashView();
+        if (!v) return;
+        document.getElementById('catDashKicker').textContent = v.scopeKicker;
+        renderKpis(document.getElementById('catDashKpis'), v.kpis);
+        renderPlanTable(document.getElementById('catDashTableBody'), v.rows);
+        renderAlerts(document.getElementById('catDashAlerts'), v.alerts);
+      }
+
+      function setMonthStripUI() {
+        var strip = document.getElementById('catMonthStrip');
+        if (!strip) return;
+        strip.querySelectorAll('[data-cat-month]').forEach(function (b) {
+          var on = b.getAttribute('data-cat-month') === activeMonth;
+          b.classList.toggle('btn--primary', on);
+          b.classList.toggle('btn--secondary', !on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      }
+
+      function initMonthStrip() {
+        var strip = document.getElementById('catMonthStrip');
+        if (!strip) return;
+        strip.querySelectorAll('[data-cat-month]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            activeMonth = btn.getAttribute('data-cat-month');
+            setMonthStripUI();
+            renderCatDashboard();
+            renderBudgets();
+            renderRequests();
+          });
+        });
+        setMonthStripUI();
+      }
+
+      function renderBudgets() {
+        var bd = BUDGET_BY_MONTH[activeMonth];
+        var rowsEl = document.getElementById('catBudgetRows');
+        var sumEl = document.getElementById('catBudgetSummary');
+        var sumTitle = document.getElementById('catBudgetSummaryTitle');
+        var bk = document.getElementById('catBudgetKicker');
+        if (bk) bk.textContent = MONTH_META[activeMonth].label + ' · лимиты закупок и дебиторка';
+        if (sumTitle) sumTitle.textContent = 'Сводка · ' + MONTH_META[activeMonth].label;
+        if (!rowsEl || !bd || !bd.rows) return;
+
+        rowsEl.innerHTML = bd.rows
+          .map(function (r) {
+            return (
+              '<div class="cat-dash__budget-row">' +
+              '<div><span class="muted cat-dash__budget-label">Категория</span><p class="cat-dash__budget-strong">' +
+              r.category +
+              '</p></div>' +
+              '<div><span class="muted cat-dash__budget-label">Бюджет</span><p>' +
+              formatRub(r.budget) +
+              '</p></div>' +
+              '<div><span class="muted cat-dash__budget-label">Потрачено</span><p>' +
+              formatRub(r.spent) +
+              '</p></div>' +
+              '<div><span class="muted cat-dash__budget-label">Остаток</span><p>' +
+              formatRub(r.left) +
+              '</p></div>' +
+              '<div><span class="muted cat-dash__budget-label">Дебиторка</span><p>' +
+              formatRub(r.debt) +
+              '</p></div>' +
+              '</div>'
+            );
+          })
+          .join('');
+
+        sumEl.innerHTML = bd.summary
+          .map(function (s) {
+            var val = formatRub(s.value);
+            var inner = '<span class="muted">' + s.label + '</span><span class="hr-dash__stat-value">' + val + '</span>';
+            return '<li>' + inner + '</li>';
+          })
+          .join('');
+      }
+
+      function countRequests(list) {
+        var c = { work: 0, wait: 0, confirmed: 0 };
+        list.forEach(function (r) {
+          if (c[r.status] !== undefined) c[r.status]++;
+        });
+        return {
+          total: list.length,
+          work: c.work,
+          wait: c.wait,
+          closed: c.confirmed
+        };
+      }
+
+      function renderRequests() {
+        var listEl = document.getElementById('catRequestList');
+        var statsEl = document.getElementById('catRequestStats');
+        var rk = document.getElementById('catRequestKicker');
+        if (rk) rk.textContent = MONTH_META[activeMonth].label + ' · заявки от торговых точек';
+        var data = REQUEST_BY_MONTH[activeMonth] || [];
+        if (!listEl) return;
+
+        listEl.innerHTML = data.map(function (r) {
+          var st = REQ_STATUS[r.status] || REQ_STATUS.wait;
+          return (
+            '<li class="cat-dash__request-item">' +
+            '<div>' +
+            '<p class="cat-dash__request-meta"><strong>' +
+            r.id +
+            '</strong> <span class="muted">' +
+            r.store +
+            '</span></p>' +
+            '<p class="cat-dash__request-title">' +
+            r.title +
+            '</p>' +
+            '<p class="muted cat-dash__request-from">Источник: ' +
+            r.from +
+            '</p>' +
+            '</div>' +
+            '<div class="cat-dash__request-side">' +
+            '<span class="cat-dash__badge ' +
+            st.cls +
+            '">' +
+            st.label +
+            '</span>' +
+            '<p class="muted cat-dash__request-assignee">Ответственный: ' +
+            r.assignee +
+            '</p>' +
+            '</div>' +
+            '</li>'
+          );
+        }).join('');
+
+        var cnt = countRequests(data);
+        statsEl.innerHTML =
+          '<div class="cat-dash__request-stat"><span class="muted">Всего</span><span class="cat-dash__request-stat-val">' +
+          cnt.total +
+          '</span></div>' +
+          '<div class="cat-dash__request-stat"><span class="muted">В работе</span><span class="cat-dash__request-stat-val">' +
+          cnt.work +
+          '</span></div>' +
+          '<div class="cat-dash__request-stat"><span class="muted">Ожидают</span><span class="cat-dash__request-stat-val">' +
+          cnt.wait +
+          '</span></div>' +
+          '<div class="cat-dash__request-stat"><span class="muted">Закрыто</span><span class="cat-dash__request-stat-val">' +
+          cnt.closed +
+          '</span></div>';
+      }
+
+      var map = {
+        dashboard: 'panel-dashboard',
+        budgets: 'panel-budgets',
+        requests: 'panel-requests',
+        messages: 'panel-messages'
+      };
+
+      var MESSAGE_DATA = [
+        {
+          from: 'Склад · Мурманск',
+          preview: 'Поступление по одноразовым эл. сигаретам — можно резервировать под ТТ Апатиты',
+          time: 'Сегодня, 11:40',
+          unread: true
+        },
+        {
+          from: 'Управляющий · ТТ Кандалакша',
+          preview: 'Нужно согласовать поставку жидкостей на следующую неделю',
+          time: 'Вчера, 16:05',
+          unread: true
+        },
+        {
+          from: 'Система',
+          preview: 'Отчёт по бюджетам за март сформирован',
+          time: 'Вчера, 09:00',
+          unread: false
+        },
+        {
+          from: 'Закупки',
+          preview: 'По табаку для кальяна — новый прайс от поставщика во вложении',
+          time: '25 марта',
+          unread: false
+        }
+      ];
+
+      function renderMessages() {
+        var listEl = document.getElementById('catMessageList');
+        if (!listEl) return;
+        listEl.innerHTML = MESSAGE_DATA.map(function (m) {
+          var rowCls = 'cat-dash__msg-item' + (m.unread ? ' cat-dash__msg-item--unread' : '');
+          return (
+            '<li class="' +
+            rowCls +
+            '">' +
+            '<div class="cat-dash__msg-top">' +
+            '<span class="cat-dash__msg-from">' +
+            m.from +
+            '</span>' +
+            '<span class="muted cat-dash__msg-time">' +
+            m.time +
+            '</span>' +
+            '</div>' +
+            '<p class="cat-dash__msg-preview">' +
+            m.preview +
+            '</p>' +
+            '</li>'
+          );
+        }).join('');
+      }
+
+      var tabButtons = document.querySelectorAll('nav.tabs .tabs__btn');
+      tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-tab');
+          tabButtons.forEach(function (b) {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+
+          Object.keys(map).forEach(function (k) {
+            var el = document.getElementById(map[k]);
+            if (!el) return;
+            if (k === key) {
+              el.hidden = false;
+              el.classList.add('is-visible');
+            } else {
+              el.hidden = true;
+              el.classList.remove('is-visible');
+            }
+          });
+
+          var monthStrip = document.getElementById('catMonthStrip');
+          if (monthStrip) monthStrip.hidden = key === 'messages';
+        });
+      });
+
+      initMonthStrip();
+      renderCatDashboard();
+      renderBudgets();
+      renderRequests();
+      renderMessages();
+    })();
+  </script>
+</body>
+</html>
