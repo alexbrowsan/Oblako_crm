@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CRM — категорийный менеджер</title>
-  <link rel="stylesheet" href="crm-proto.css" />
+  <link rel="stylesheet" href="crm-proto.css?v=cat1" />
 </head>
-<body class="page-dashboard">
+<body class="page-dashboard page-cat-manager">
   <header class="topbar">
     <div class="topbar__user">
       <span class="topbar__name" id="categoryManagerName">Алина Геранина</span>
@@ -16,56 +16,95 @@
 
   <nav class="tabs" role="tablist" aria-label="Разделы категорийного менеджера">
     <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" data-tab="dashboard">Дашборд</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="metrics">Показатели</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="budgets">Бюджеты</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="requests">Заявки</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="messages">Сообщения</button>
   </nav>
 
-  <div class="cat-dash__month-strip" id="catMonthStrip" role="group" aria-label="Месяц отчёта">
-    <span class="cat-dash__month-strip-label muted">Месяц</span>
-    <button type="button" class="btn btn--secondary cat-dash__month-btn" data-cat-month="feb" aria-pressed="false">Февраль</button>
-    <button type="button" class="btn btn--primary cat-dash__month-btn" data-cat-month="mar" aria-pressed="true">Март</button>
-    <button type="button" class="btn btn--secondary cat-dash__month-btn" data-cat-month="apr" aria-pressed="false">Апрель</button>
+  <div class="cat-dash__month-strip" id="catMonthStrip" role="region" aria-label="Фильтры отчёта">
+    <div class="cat-dash__filters">
+      <div class="cat-dash__filter-group">
+        <label class="cat-dash__filter-heading muted" for="catFilterMonth">Месяц</label>
+        <select id="catFilterMonth" class="input cat-dash__filter-input" aria-label="Месяц">
+          <option value="feb">Февраль 2026</option>
+          <option value="mar">Март 2026</option>
+          <option value="apr">Апрель 2026</option>
+        </select>
+      </div>
+      <div class="cat-dash__filter-group">
+        <label class="cat-dash__filter-heading muted" for="catFilterCategory">Категория</label>
+        <select id="catFilterCategory" class="input cat-dash__filter-input"></select>
+      </div>
+      <div class="cat-dash__filter-group">
+        <label class="cat-dash__filter-heading muted" for="catFilterStore">Торговая точка</label>
+        <select id="catFilterStore" class="input cat-dash__filter-input"></select>
+      </div>
+      <div class="cat-dash__filter-group">
+        <label class="cat-dash__filter-heading muted" for="catFilterRegion">Регион</label>
+        <select id="catFilterRegion" class="input cat-dash__filter-input">
+          <option value="">Все регионы</option>
+          <option value="volgograd">Волгоград</option>
+          <option value="murmansk">Мурманск</option>
+        </select>
+      </div>
+      <div class="cat-dash__filter-group">
+        <label class="cat-dash__filter-heading muted" for="catFilterPeriod">Период</label>
+        <select id="catFilterPeriod" class="input cat-dash__filter-input">
+          <option value="">Весь месяц</option>
+          <option value="d1">1–10 число</option>
+          <option value="d2">11–20 число</option>
+          <option value="d3">21 число — конец</option>
+        </select>
+      </div>
+    </div>
   </div>
 
   <main class="panel">
     <section class="tab-panel is-visible cat-dash" id="panel-dashboard" role="tabpanel">
-      <div class="cat-dash__title-row">
-        <div>
-          <h2 id="dashboardName">Алина Геранина</h2>
-          <p class="muted cat-dash__kicker" id="catDashKicker"></p>
-        </div>
-      </div>
-
-      <div class="cat-dash__kpis" id="catDashKpis"></div>
-
       <div class="cat-dash__plan-layout">
-        <article class="dash-card cat-dash__plan-main">
-          <h3 class="seller-plan-card__title">Монитор план / факт</h3>
-          <div class="cat-dash__table-wrap">
-            <table class="cat-dash__table">
-              <thead>
-                <tr>
-                  <th>Категория</th>
-                  <th>Торговая точка</th>
-                  <th>Доступность</th>
-                  <th>Неликвид</th>
-                  <th>План</th>
-                  <th>Факт</th>
-                  <th>Статус</th>
-                </tr>
-              </thead>
-              <tbody id="catDashTableBody"></tbody>
-            </table>
+        <article class="dash-card cat-dash__plan-main cat-dash__metrics-on-dashboard">
+          <p class="cat-dash__metrics-category" id="catMetricsCategoryTitle"></p>
+          <p class="muted cat-dash__data-stamp" id="catMetricsDataStamp" aria-live="polite"></p>
+          <h3 class="seller-plan-card__title cat-dash__metrics-panel-title">Показатели</h3>
+          <div id="catMetricsMainBlock">
+            <div id="catMetricsSummaryKpis" class="cat-dash__metrics-summary-kpis" hidden></div>
+            <div id="catMetricsDataTableSection" class="cat-dash__metrics-data-table-section">
+              <div class="cat-dash__table-wrap">
+                <table class="cat-dash__table cat-dash__table--metrics">
+                  <thead id="catMetricsThead"></thead>
+                  <tbody id="catMetricsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div id="catMetricsDrilldown" class="cat-dash__metrics-drilldown" hidden>
+            <div class="cat-dash__metrics-drill-head">
+              <button type="button" class="btn btn--secondary cat-dash__metrics-drill-back" id="catMetricsDrillBack">
+                ← Назад к показателям
+              </button>
+              <h4 class="cat-dash__metrics-drill-title" id="catMetricsDrillTitle"></h4>
+            </div>
+            <p class="muted cat-dash__metrics-drill-hint">Показатели по категориям для выбранной торговой точки</p>
+            <div class="cat-dash__table-wrap">
+              <table class="cat-dash__table cat-dash__table--metrics">
+                <thead id="catMetricsDrillThead"></thead>
+                <tbody id="catMetricsDrillBody"></tbody>
+              </table>
+            </div>
           </div>
         </article>
+      </div>
+    </section>
 
-        <aside class="cat-dash__plan-aside">
-          <article class="dash-card">
-            <h3 class="seller-plan-card__title">Требует внимания</h3>
-            <ul class="hr-dash__alerts" id="catDashAlerts"></ul>
-          </article>
-        </aside>
+    <section class="tab-panel cat-dash" id="panel-metrics" role="tabpanel" hidden>
+      <div class="cat-dash__plan-layout">
+        <article class="dash-card cat-dash__plan-main">
+          <h3 class="seller-plan-card__title">Показатели</h3>
+          <p class="muted cat-dash__card-intro">
+            Таблица показателей по категории отображается на вкладке «Дашборд».
+          </p>
+        </article>
       </div>
     </section>
 
@@ -138,20 +177,51 @@
 
   <script>
     (function () {
-      var STATUS = {
-        bad: { label: 'Проблема', cls: 'cat-dash__badge--bad' },
-        ok: { label: 'Норма', cls: 'cat-dash__badge--ok' },
-        risk: { label: 'Под риском', cls: 'cat-dash__badge--risk' }
-      };
-
       var REQ_STATUS = {
         work: { label: 'В работе', cls: 'cat-dash__badge--work' },
         wait: { label: 'Ожидает', cls: 'cat-dash__badge--wait' },
         confirmed: { label: 'Заказ подтверждён', cls: 'cat-dash__badge--ok' }
       };
 
+      /** «Все точки» в селекте торговой точки; пустое значение — режим «Сводка». */
+      var CAT_FILTER_STORE_ALL = '__all__';
+
       function formatRub(n) {
         return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + '\u00a0₽';
+      }
+
+      function formatMetricsInt(n) {
+        return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+      }
+
+      function formatDashDataIssuedLine(d) {
+        var months = [
+          'января',
+          'февраля',
+          'марта',
+          'апреля',
+          'мая',
+          'июня',
+          'июля',
+          'августа',
+          'сентября',
+          'октября',
+          'ноября',
+          'декабря'
+        ];
+        var day = d.getDate();
+        var mon = months[d.getMonth()];
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var hh = h < 10 ? '0' + h : '' + h;
+        var mm = m < 10 ? '0' + m : '' + m;
+        return day + ' ' + mon + ', данные обновлялись в ' + hh + ':' + mm;
+      }
+
+      function renderCatDashboardDataStamp() {
+        var line = formatDashDataIssuedLine(new Date());
+        var metricsStamp = document.getElementById('catMetricsDataStamp');
+        if (metricsStamp) metricsStamp.textContent = line;
       }
 
       var activeMonth = 'mar';
@@ -162,78 +232,99 @@
         apr: { label: 'Апрель 2026' }
       };
 
-      function dashScopeAll() {
-        return {
-          scopeKicker: 'Все категории • ТТ Мурманской области'
-        };
+      var PLAN_CATEGORIES = [
+        'Жевательный табак',
+        'Жидкости',
+        'кальяны',
+        'Испарители',
+        'одноразовые эл. сигареты',
+        'Уголь',
+        'табак для кальяна'
+      ];
+
+      var VOLGOGRAD_STORES_LIST = [
+        'Волгоград, Рабоче-Крестьянская 2/2',
+        'Волгоград, Рокоссовского 107',
+        'Волгоград, Шумского',
+        'Волгоград Кастерина',
+        'Волгоград Волжский Ленина',
+        'Волгоград 30 лет победы',
+        'Волгоград Ленина'
+      ];
+
+      function crmRoleNormalized() {
+        try {
+          var r = sessionStorage.getItem('crm_role') || '';
+          if (r === 'category') return 'category_lead';
+          return r;
+        } catch (e) {
+          return '';
+        }
       }
 
-      var DASH_DATA = {
-        feb: {
-          kpis: [
-            { title: 'Доступность товара', value: '88%' },
-            { title: 'Доля неликвида', value: '14%' },
-            { title: 'План по выручке', value: '82%' },
-            { title: 'Валовый доход', value: '76%' }
-          ],
-          rows: [
-            { category: 'Жевательный табак', store: 'ТТ Мурманск', avail: 94, dead: 7, plan: 680000, fact: 672000, status: 'ok' },
-            { category: 'Жидкости', store: 'ТТ Кандалакша', avail: 86, dead: 11, plan: 390000, fact: 338000, status: 'risk' },
-            { category: 'кальяны', store: 'ТТ Мончегорск', avail: 90, dead: 8, plan: 265000, fact: 248000, status: 'risk' },
-            { category: 'Испарители', store: 'ТТ Североморск', avail: 72, dead: 19, plan: 310000, fact: 268000, status: 'bad' },
-            { category: 'одноразовые эл. сигареты', store: 'ТТ Апатиты', avail: 82, dead: 15, plan: 480000, fact: 405000, status: 'bad' },
-            { category: 'Уголь', store: 'ТТ Мурманск', avail: 95, dead: 6, plan: 195000, fact: 186000, status: 'ok' },
-            { category: 'табак для кальяна', store: 'ТТ Кандалакша', avail: 88, dead: 10, plan: 220000, fact: 205000, status: 'risk' }
-          ],
-          alerts: [
-            { text: 'Февраль: Апатиты — одноразовые эл. сигареты ниже целевой доступности', warn: true },
-            { text: 'Североморск — рост неликвида по испарителям', warn: false }
-          ]
-        },
-        mar: {
-          kpis: [
-            { title: 'Доступность товара', value: '91%' },
-            { title: 'Доля неликвида', value: '12%' },
-            { title: 'План по выручке', value: '86%' },
-            { title: 'Валовый доход', value: '79%' }
-          ],
-          rows: [
-            { category: 'Жевательный табак', store: 'ТТ Мурманск', avail: 96, dead: 6, plan: 700000, fact: 710000, status: 'ok' },
-            { category: 'Жидкости', store: 'ТТ Кандалакша', avail: 88, dead: 10, plan: 400000, fact: 350000, status: 'risk' },
-            { category: 'кальяны', store: 'ТТ Мончегорск', avail: 92, dead: 7, plan: 280000, fact: 262000, status: 'risk' },
-            { category: 'Испарители', store: 'ТТ Североморск', avail: 75, dead: 18, plan: 325000, fact: 282000, status: 'bad' },
-            { category: 'одноразовые эл. сигареты', store: 'ТТ Апатиты', avail: 84, dead: 14, plan: 500000, fact: 420000, status: 'bad' },
-            { category: 'Уголь', store: 'ТТ Мурманск', avail: 97, dead: 5, plan: 205000, fact: 198000, status: 'ok' },
-            { category: 'табак для кальяна', store: 'ТТ Кандалакша', avail: 90, dead: 9, plan: 235000, fact: 218000, status: 'risk' }
-          ],
-          alerts: [
-            { text: 'ТТ Апатиты — низкая доступность по одноразовым эл. сигаретам', warn: true },
-            { text: 'ТТ Североморск — высокая доля неликвида (испарители)', warn: false },
-            { text: 'Жидкости — отставание от плана по выручке', warn: false }
-          ]
-        },
-        apr: {
-          kpis: [
-            { title: 'Доступность товара', value: '93%' },
-            { title: 'Доля неликвида', value: '10%' },
-            { title: 'План по выручке', value: '90%' },
-            { title: 'Валовый доход', value: '84%' }
-          ],
-          rows: [
-            { category: 'Жевательный табак', store: 'ТТ Мурманск', avail: 97, dead: 5, plan: 720000, fact: 735000, status: 'ok' },
-            { category: 'Жидкости', store: 'ТТ Кандалакша', avail: 91, dead: 8, plan: 420000, fact: 401000, status: 'ok' },
-            { category: 'кальяны', store: 'ТТ Мончегорск', avail: 94, dead: 6, plan: 295000, fact: 288000, status: 'ok' },
-            { category: 'Испарители', store: 'ТТ Североморск', avail: 80, dead: 14, plan: 330000, fact: 312000, status: 'risk' },
-            { category: 'одноразовые эл. сигареты', store: 'ТТ Апатиты', avail: 88, dead: 11, plan: 520000, fact: 498000, status: 'ok' },
-            { category: 'Уголь', store: 'ТТ Мурманск', avail: 98, dead: 4, plan: 218000, fact: 212000, status: 'ok' },
-            { category: 'табак для кальяна', store: 'ТТ Кандалакша', avail: 92, dead: 7, plan: 248000, fact: 239000, status: 'ok' }
-          ],
-          alerts: [
-            { text: 'Апрель: Североморск — испарители чуть ниже плана', warn: false },
-            { text: 'Проверить остатки кальянов и угля к выходным', warn: false }
-          ]
+      function crmManagedCategory() {
+        try {
+          return sessionStorage.getItem('crm_managed_category') || '';
+        } catch (e2) {
+          return '';
         }
-      };
+      }
+
+      /** Совпадает с тем, что пишется при входе «Категорийный менеджер» в index.html */
+      var CRM_PROTOTYPE_MANAGED_CATEGORY = 'Жевательный табак';
+
+      function applyTopbarPersona() {
+        var el = document.getElementById('categoryManagerName');
+        if (!el) return;
+        if (crmRoleNormalized() === 'category_manager') {
+          var cat = crmManagedCategory() || CRM_PROTOTYPE_MANAGED_CATEGORY;
+          var who = sessionStorage.getItem('crm_login') || 'Категорийный менеджер';
+          el.textContent = who + ' · ' + cat;
+        } else {
+          el.textContent = 'Алина Геранина';
+        }
+      }
+
+      function applyCategoryManagerScope() {
+        if (crmRoleNormalized() !== 'category_manager') return;
+        var mc = crmManagedCategory() || CRM_PROTOTYPE_MANAGED_CATEGORY;
+        if (PLAN_CATEGORIES.indexOf(mc) === -1) return;
+        var catSel = document.getElementById('catFilterCategory');
+        if (!catSel) return;
+        catSel.value = mc;
+        catSel.disabled = true;
+        catSel.title = 'Доступ только к категории «' + mc + '»';
+      }
+
+      function planSeedHash(monthKey, store, category) {
+        var s = monthKey + '|' + store + '|' + category;
+        var h = 2166136261;
+        for (var i = 0; i < s.length; i++) {
+          h ^= s.charCodeAt(i);
+          h = Math.imul(h, 16777619);
+        }
+        return h >>> 0;
+      }
+
+      function rndU01(seed) {
+        var x = seed ^ (seed << 13);
+        x ^= x >>> 17;
+        x ^= x << 5;
+        return (x >>> 0) / 4294967296;
+      }
+
+      var MURMANSK_STORES = [
+        'Апатиты Ферсмана 28',
+        'Апатиты, Бредова 26А',
+        'Апатиты, Дзержинского 37',
+        'Апатиты, Жемчужная 15А',
+        'Апатиты, Козлова 10',
+        'Апатиты, Козлова 10 (Smog Shop)',
+        'Апатиты, Ленина 10',
+        'Апатиты, Сидоренко 1',
+        'Кандалакша, Пронина 7А',
+        'Кировск, Кондрикова 1'
+      ];
 
       var BUDGET_BY_MONTH = {
         feb: {
@@ -279,129 +370,755 @@
 
       var REQUEST_BY_MONTH = {
         feb: [
-          { id: '#201', store: 'ТТ Мурманск', title: 'Табак Must Have', from: 'управляющий', status: 'confirmed', assignee: 'закупки' },
-          { id: '#202', store: 'ТТ Апатиты', title: 'Вейпы HQD', from: 'продавец', status: 'wait', assignee: 'склад' },
-          { id: '#203', store: 'ТТ Кандалакша', title: 'Жидкость 30 ml', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
-          { id: '#204', store: 'ТТ Мончегорск', title: 'Уголь', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' }
+          { id: '#201', store: 'Волгоград, Рабоче-Крестьянская 2/2', title: 'Табак Must Have', from: 'управляющий', status: 'confirmed', assignee: 'закупки' },
+          { id: '#202', store: 'Волгоград Волжский Ленина', title: 'Вейпы HQD', from: 'продавец', status: 'wait', assignee: 'склад' },
+          { id: '#203', store: 'Волгоград, Рокоссовского 107', title: 'Жидкость 30 ml', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#204', store: 'Волгоград, Шумского', title: 'Уголь', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' }
         ],
         mar: [
-          { id: '#241', store: 'ТТ Апатиты', title: 'HQD 1200 Blueberry', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
-          { id: '#242', store: 'ТТ Мурманск', title: 'Табак Darkside Core', from: 'управляющий', status: 'wait', assignee: 'склад' },
-          { id: '#243', store: 'ТТ Кандалакша', title: 'Одноразки Lost Mary', from: 'продавец', status: 'work', assignee: 'категорийный менеджер' },
-          { id: '#244', store: 'ТТ Мончегорск', title: 'Уголь кокосовый', from: 'управляющий', status: 'confirmed', assignee: 'закупки' },
-          { id: '#245', store: 'ТТ Североморск', title: 'ELF BAR 1500', from: 'управляющий', status: 'wait', assignee: 'склад' },
-          { id: '#246', store: 'ТТ Апатиты', title: 'Уголь для кальяна 1кг', from: 'продавец', status: 'work', assignee: 'категорийный менеджер' }
+          { id: '#241', store: 'Волгоград Волжский Ленина', title: 'HQD 1200 Blueberry', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#242', store: 'Волгоград 30 лет победы', title: 'Табак Darkside Core', from: 'управляющий', status: 'wait', assignee: 'склад' },
+          { id: '#243', store: 'Волгоград Ленина', title: 'Одноразки Lost Mary', from: 'продавец', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#244', store: 'Волгоград, Шумского', title: 'Уголь кокосовый', from: 'управляющий', status: 'confirmed', assignee: 'закупки' },
+          { id: '#245', store: 'Волгоград Кастерина', title: 'ELF BAR 1500', from: 'управляющий', status: 'wait', assignee: 'склад' },
+          { id: '#246', store: 'Волгоград Волжский Ленина', title: 'Уголь для кальяна 1кг', from: 'продавец', status: 'work', assignee: 'категорийный менеджер' }
         ],
         apr: [
-          { id: '#301', store: 'ТТ Мурманск', title: 'Вейпы новая линейка', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
-          { id: '#302', store: 'ТТ Апатиты', title: 'Табак Spectrum', from: 'продавец', status: 'wait', assignee: 'склад' },
-          { id: '#303', store: 'ТТ Североморск', title: 'Снеки премиум', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
-          { id: '#304', store: 'ТТ Кандалакша', title: 'Жидкости ICE', from: 'продавец', status: 'confirmed', assignee: 'закупки' },
-          { id: '#305', store: 'ТТ Мончегорск', title: 'Кальянные чаши', from: 'управляющий', status: 'wait', assignee: 'склад' }
+          { id: '#301', store: 'Волгоград, Рабоче-Крестьянская 2/2', title: 'Вейпы новая линейка', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#302', store: 'Волгоград Волжский Ленина', title: 'Табак Spectrum', from: 'продавец', status: 'wait', assignee: 'склад' },
+          { id: '#303', store: 'Волгоград Кастерина', title: 'Снеки премиум', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#304', store: 'Волгоград, Рокоссовского 107', title: 'Жидкости ICE', from: 'продавец', status: 'confirmed', assignee: 'закупки' },
+          { id: '#305', store: 'Волгоград, Шумского', title: 'Кальянные чаши', from: 'управляющий', status: 'wait', assignee: 'склад' }
         ]
       };
 
-      function getDashView() {
-        var base = DASH_DATA[activeMonth];
-        return Object.assign({}, base, dashScopeAll());
+      var MURMANSK_REQUEST_BY_MONTH = {
+        feb: [
+          { id: '#M201', store: 'Апатиты Ферсмана 28', title: 'Поставка жидкостей 30 ml', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#M202', store: 'Кандалакша, Пронина 7А', title: 'Уголь кокосовый 1 кг', from: 'продавец', status: 'wait', assignee: 'склад' },
+          { id: '#M203', store: 'Апатиты, Ленина 10', title: 'Одноразки — новая линейка', from: 'управляющий', status: 'confirmed', assignee: 'закупки' }
+        ],
+        mar: [
+          { id: '#M241', store: 'Апатиты, Козлова 10', title: 'Табак для кальяна', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' },
+          { id: '#M242', store: 'Кировск, Кондрикова 1', title: 'Вейпы HQD', from: 'продавец', status: 'wait', assignee: 'склад' },
+          { id: '#M243', store: 'Апатиты, Сидоренко 1', title: 'Испарители — возврат брака', from: 'управляющий', status: 'work', assignee: 'категорийный менеджер' }
+        ],
+        apr: [
+          { id: '#M301', store: 'Апатиты, Бредова 26А', title: 'Жидкости ICE', from: 'продавец', status: 'confirmed', assignee: 'закупки' },
+          { id: '#M302', store: 'Апатиты, Козлова 10 (Smog Shop)', title: 'Кальянные чаши', from: 'управляющий', status: 'wait', assignee: 'склад' }
+        ]
+      };
+
+      function fillSelectFromList(selectId, values, allLabel) {
+        var sel = document.getElementById(selectId);
+        if (!sel) return;
+        sel.innerHTML = '';
+        var o0 = document.createElement('option');
+        o0.value = '';
+        o0.textContent = allLabel;
+        sel.appendChild(o0);
+        values.forEach(function (v) {
+          var o = document.createElement('option');
+          o.value = v;
+          o.textContent = v;
+          sel.appendChild(o);
+        });
       }
 
-      function renderKpis(container, kpis) {
-        var html = kpis
-          .map(function (k) {
-            return (
-              '<article class="dash-card">' +
-              '<h3 class="dash-card__label">' +
-              k.title +
-              '</h3>' +
-              '<p class="dash-card__value">' +
-              k.value +
-              '</p>' +
-              '</article>'
-            );
-          })
-          .join('');
-        container.innerHTML = html;
+      function planRowDimensionLists() {
+        return {
+          categories: PLAN_CATEGORIES.slice(),
+          stores: VOLGOGRAD_STORES_LIST.slice()
+        };
       }
 
-      function renderPlanTable(tbody, rows) {
-        var html = rows
-          .map(function (r) {
-            var st = STATUS[r.status] || STATUS.risk;
-            return (
-              '<tr>' +
-              '<td class="cat-dash__td-strong">' +
-              r.category +
-              '</td>' +
-              '<td>' +
-              r.store +
-              '</td>' +
-              '<td>' +
-              r.avail +
-              '%</td>' +
-              '<td>' +
-              r.dead +
-              '%</td>' +
-              '<td>' +
-              formatRub(r.plan) +
-              '</td>' +
-              '<td>' +
-              formatRub(r.fact) +
-              '</td>' +
-              '<td><span class="cat-dash__badge ' +
-              st.cls +
-              '">' +
-              st.label +
-              '</span></td>' +
-              '</tr>'
-            );
-          })
-          .join('');
-        tbody.innerHTML = html;
+      function volgogradStoreSet() {
+        var o = {};
+        VOLGOGRAD_STORES_LIST.forEach(function (s) {
+          o[s] = true;
+        });
+        return o;
       }
 
-      function renderAlerts(ul, items) {
-        ul.innerHTML = items
-          .map(function (a) {
-            var cls = 'hr-dash__alert-item' + (a.warn ? ' hr-dash__alert-item--warn' : '');
-            return '<li class="' + cls + '">' + a.text + '</li>';
-          })
-          .join('');
+      function murmanskStoreSet() {
+        var o = {};
+        MURMANSK_STORES.forEach(function (s) {
+          o[s] = true;
+        });
+        return o;
+      }
+
+      function mergeStoreListsUnique(a, b) {
+        var seen = {};
+        var out = [];
+        a.concat(b).forEach(function (s) {
+          if (!seen[s]) {
+            seen[s] = true;
+            out.push(s);
+          }
+        });
+        return out;
+      }
+
+      function storesForRegionDropdown(regionValue) {
+        var vg = VOLGOGRAD_STORES_LIST;
+        if (regionValue === 'volgograd') return vg.slice();
+        if (regionValue === 'murmansk') return MURMANSK_STORES.slice();
+        return mergeStoreListsUnique(vg, MURMANSK_STORES);
+      }
+
+      function updateStoreSelectOptions() {
+        var reg = document.getElementById('catFilterRegion');
+        var rv = reg ? reg.value : '';
+        var stores = storesForRegionDropdown(rv);
+        var sel = document.getElementById('catFilterStore');
+        if (!sel) return;
+        var prev = sel.value;
+        sel.innerHTML = '';
+        var oAll = document.createElement('option');
+        oAll.value = CAT_FILTER_STORE_ALL;
+        oAll.textContent = 'Все точки';
+        sel.appendChild(oAll);
+        stores.forEach(function (v) {
+          var o = document.createElement('option');
+          o.value = v;
+          o.textContent = v;
+          sel.appendChild(o);
+        });
+        if (prev === CAT_FILTER_STORE_ALL || prev === '' || stores.indexOf(prev) === -1) {
+          sel.value = CAT_FILTER_STORE_ALL;
+        } else {
+          sel.value = prev;
+        }
+      }
+
+      function metricsCategoryLabel() {
+        if (crmRoleNormalized() === 'category_manager') {
+          return crmManagedCategory() || CRM_PROTOTYPE_MANAGED_CATEGORY;
+        }
+        var catEl = document.getElementById('catFilterCategory');
+        if (catEl && catEl.value) return catEl.value;
+        return 'Все категории';
+      }
+
+      function isCategoryLeadMetrics() {
+        return crmRoleNormalized() === 'category_lead';
+      }
+
+      function metricsExecPct(plan, fact) {
+        if (!plan || plan <= 0) return 0;
+        return Math.round((fact / plan) * 100);
+      }
+
+      function metricsPctCellClass(pct) {
+        if (pct >= 100) return 'cat-dash__metrics-cell--pct-good';
+        return 'cat-dash__metrics-cell--pct-bad';
+      }
+
+      function metricsRevFactCellHtml(r) {
+        if (r.isTotal) {
+          return '<td>' + formatMetricsInt(r.revFact) + '</td>';
+        }
+        return (
+          '<td class="cat-dash__metrics-rev-fact-cell">' +
+          '<button type="button" class="cat-dash__metrics-rev-btn" data-store="' +
+          encodeURIComponent(r.store) +
+          '" title="Детализация выручки по точке">' +
+          formatMetricsInt(r.revFact) +
+          '</button>' +
+          '</td>'
+        );
+      }
+
+      function closeMetricsDrilldown() {
+        var main = document.getElementById('catMetricsMainBlock');
+        var drill = document.getElementById('catMetricsDrilldown');
+        if (main) main.hidden = false;
+        if (drill) drill.hidden = true;
+      }
+
+      function cmMetricsTheadRowHtml(firstColTitle) {
+        return (
+          '<tr>' +
+          '<th>' +
+          firstColTitle +
+          '</th>' +
+          '<th>Выручка<br />план</th>' +
+          '<th>Выручка<br />факт</th>' +
+          '<th>Маржинальность<br />план</th>' +
+          '<th>Маржинальность<br />факт</th>' +
+          '<th>Валовая прибыль<br />план</th>' +
+          '<th>Валовая прибыль<br />факт</th>' +
+          '<th>Неликвид<br />30–120 план</th>' +
+          '<th>Неликвид<br />30–120 факт</th>' +
+          '<th>Неликвид<br />120+ план</th>' +
+          '<th>Неликвид<br />120+ факт</th>' +
+          '<th>Товарные запасы<br />ликвидные план</th>' +
+          '<th>Товарные запасы<br />ликвидные факт</th>' +
+          '<th>Доступность товара<br />НЕА</th>' +
+          '<th>Доступность<br />товара</th>' +
+          '</tr>'
+        );
+      }
+
+      function htmlCmMetricsDataRow(r, firstCellLabel, revFactAsButton) {
+        var trCls = r.isTotal ? ' class="cat-dash__metrics-row-total"' : '';
+        var revTd =
+          revFactAsButton && !r.isTotal ? metricsRevFactCellHtml(r) : '<td>' + formatMetricsInt(r.revFact) + '</td>';
+        return (
+          '<tr' +
+          trCls +
+          '>' +
+          '<td class="cat-dash__td-strong">' +
+          firstCellLabel +
+          '</td>' +
+          '<td>' +
+          formatMetricsInt(r.revPlan) +
+          '</td>' +
+          revTd +
+          '<td>' +
+          r.marginPlan +
+          '%</td>' +
+          '<td>' +
+          r.marginFact +
+          '%</td>' +
+          '<td>' +
+          formatMetricsInt(r.grossPlan) +
+          '</td>' +
+          '<td>' +
+          formatMetricsInt(r.grossFact) +
+          '</td>' +
+          '<td>—</td>' +
+          '<td>' +
+          formatMetricsInt(r.illiquid30120Fact) +
+          '</td>' +
+          '<td>—</td>' +
+          '<td>' +
+          formatMetricsInt(r.illiquid120PlusFact) +
+          '</td>' +
+          '<td>' +
+          formatMetricsInt(r.liquidStockPlan) +
+          '</td>' +
+          '<td>' +
+          formatMetricsInt(r.liquidStockFact) +
+          '</td>' +
+          '<td>' +
+          r.availNea +
+          '%</td>' +
+          '<td>' +
+          r.availProduct +
+          '%</td>' +
+          '</tr>'
+        );
+      }
+
+      function buildDrillCategoryRowsForStore(store) {
+        return PLAN_CATEGORIES.map(function (cat, i) {
+          return buildMetricsDataRow(activeMonth, store, i, cat);
+        });
+      }
+
+      function renderRevDrillTable(store) {
+        var thead = document.getElementById('catMetricsDrillThead');
+        var tbody = document.getElementById('catMetricsDrillBody');
+        if (thead) thead.innerHTML = cmMetricsTheadRowHtml('Категория');
+        if (!tbody) return;
+        var dataRows = buildDrillCategoryRowsForStore(store);
+        var total = aggregateCmMetricsTotal(dataRows);
+        var parts = dataRows.map(function (r, i) {
+          return htmlCmMetricsDataRow(r, PLAN_CATEGORIES[i], false);
+        });
+        if (total) parts.push(htmlCmMetricsDataRow(total, 'Итого', false));
+        tbody.innerHTML = parts.join('');
+      }
+
+      function openMetricsRevDrilldown(store) {
+        var main = document.getElementById('catMetricsMainBlock');
+        var drill = document.getElementById('catMetricsDrilldown');
+        var title = document.getElementById('catMetricsDrillTitle');
+        if (title) title.textContent = 'Выручка факт · ' + store;
+        renderRevDrillTable(store);
+        if (main) main.hidden = true;
+        if (drill) drill.hidden = false;
+      }
+
+      function initMetricsRevDrillUi() {
+        var tbody = document.getElementById('catMetricsTableBody');
+        if (tbody && !tbody.dataset.revDrillBound) {
+          tbody.dataset.revDrillBound = '1';
+          tbody.addEventListener('click', function (e) {
+            var btn = e.target.closest('.cat-dash__metrics-rev-btn');
+            if (!btn) return;
+            var enc = btn.getAttribute('data-store');
+            if (!enc) return;
+            try {
+              openMetricsRevDrilldown(decodeURIComponent(enc));
+            } catch (e2) {
+              return;
+            }
+          });
+        }
+        var back = document.getElementById('catMetricsDrillBack');
+        if (back && !back.dataset.bound) {
+          back.dataset.bound = '1';
+          back.addEventListener('click', closeMetricsDrilldown);
+        }
+      }
+
+      function renderMetricsThead(isLead) {
+        var thead = document.getElementById('catMetricsThead');
+        if (!thead) return;
+        if (isLead) {
+          thead.innerHTML =
+            '<tr>' +
+            '<th>Магазин</th>' +
+            '<th>Выручка<br />план</th>' +
+            '<th>Выручка<br />факт</th>' +
+            '<th>% выполнения</th>' +
+            '<th>Валовая прибыль<br />план</th>' +
+            '<th>Валовая прибыль<br />факт</th>' +
+            '<th>% выполнения</th>' +
+            '<th>Доступность товара<br />план</th>' +
+            '<th>Доступность товара<br />факт</th>' +
+            '<th>% выполнения</th>' +
+            '<th>Индекс продавцов<br />план</th>' +
+            '<th>Индекс продавцов<br />факт</th>' +
+            '<th>% выполнения</th>' +
+            '</tr>';
+        } else {
+          thead.innerHTML = cmMetricsTheadRowHtml('Магазин');
+        }
+      }
+
+      function buildMetricsDataRow(monthKey, store, idx, category) {
+        var h0 = planSeedHash(monthKey, store, 'metrics:' + category + ':' + idx);
+        var r = rndU01(h0);
+        var revPlan = 800000 + Math.floor(r * 900000) + idx * 12000;
+        revPlan = Math.round(revPlan / 1000) * 1000;
+        var revFact = Math.round(revPlan * (0.5 + rndU01(h0 + 1) * 0.65) / 1000) * 1000;
+
+        var grossPlan = Math.round(revPlan * 0.42 / 1000) * 1000;
+        var grossFact = Math.round(revFact * (0.45 + rndU01(h0 + 2) * 0.2) / 1000) * 1000;
+
+        var marginPlan = 44;
+        var marginFact = 40 + Math.floor(rndU01(h0 + 3) * 45);
+        var illiquid30120Fact = 12000 + Math.floor(rndU01(h0 + 10) * 155000);
+        illiquid30120Fact = Math.round(illiquid30120Fact / 1000) * 1000;
+        var illiquid120PlusFact = Math.floor(rndU01(h0 + 7) * 180000);
+        illiquid120PlusFact = Math.round(illiquid120PlusFact / 1000) * 1000;
+        var liquidStockPlan = 320000 + Math.floor(rndU01(h0 + 8) * 720000);
+        liquidStockPlan = Math.round(liquidStockPlan / 1000) * 1000;
+        var liquidStockFact = Math.round(liquidStockPlan * (0.86 + rndU01(h0 + 9) * 0.18) / 1000) * 1000;
+        var availNea = 68 + Math.floor(rndU01(h0 + 11) * 28);
+        var availProduct = 74 + Math.floor(rndU01(h0 + 12) * 24);
+
+        return {
+          store: store,
+          revPlan: revPlan,
+          revFact: revFact,
+          grossPlan: grossPlan,
+          grossFact: grossFact,
+          marginPlan: marginPlan,
+          marginFact: marginFact,
+          illiquid30120Fact: illiquid30120Fact,
+          illiquid120PlusFact: illiquid120PlusFact,
+          liquidStockPlan: liquidStockPlan,
+          liquidStockFact: liquidStockFact,
+          availNea: availNea,
+          availProduct: availProduct
+        };
+      }
+
+      function buildLeadMetricsDataRow(monthKey, store, idx, category) {
+        var h0 = planSeedHash(monthKey, store, 'lead-met:' + category + ':' + idx);
+        var revPlan = 800000 + Math.floor(rndU01(h0) * 900000) + idx * 12000;
+        revPlan = Math.round(revPlan / 1000) * 1000;
+        var revFact = Math.round(revPlan * (0.82 + rndU01(h0 + 1) * 0.22) / 1000) * 1000;
+        var grossPlan = Math.round(revPlan * 0.36 / 1000) * 1000;
+        var grossFact = Math.round(grossPlan * (0.78 + rndU01(h0 + 2) * 0.28) / 1000) * 1000;
+        var availPlan = 88 + Math.floor(rndU01(h0 + 3) * 11);
+        var availFact = Math.max(72, Math.min(99, availPlan - Math.floor(rndU01(h0 + 4) * 15)));
+        var sellPlan = 92 + Math.floor(rndU01(h0 + 5) * 18);
+        var sellFact = Math.max(75, Math.min(115, sellPlan - Math.floor(rndU01(h0 + 6) * 20)));
+        return {
+          store: store,
+          revPlan: revPlan,
+          revFact: revFact,
+          grossPlan: grossPlan,
+          grossFact: grossFact,
+          availPlan: availPlan,
+          availFact: availFact,
+          sellPlan: sellPlan,
+          sellFact: sellFact
+        };
+      }
+
+      function aggregateCmMetricsTotal(rows) {
+        if (!rows.length) return null;
+        var revPlan = 0;
+        var revFact = 0;
+        var grossPlan = 0;
+        var grossFact = 0;
+        var marginSum = 0;
+        var illMid120FactSum = 0;
+        var ill120PlusFactSum = 0;
+        var liquidPlanSum = 0;
+        var liquidFactSum = 0;
+        var availNeaSum = 0;
+        var availProductSum = 0;
+        rows.forEach(function (r) {
+          revPlan += r.revPlan;
+          revFact += r.revFact;
+          grossPlan += r.grossPlan;
+          grossFact += r.grossFact;
+          marginSum += r.marginFact;
+          illMid120FactSum += r.illiquid30120Fact;
+          ill120PlusFactSum += r.illiquid120PlusFact;
+          liquidPlanSum += r.liquidStockPlan;
+          liquidFactSum += r.liquidStockFact;
+          availNeaSum += r.availNea;
+          availProductSum += r.availProduct;
+        });
+        var n = rows.length;
+        return {
+          store: 'Итого',
+          revPlan: revPlan,
+          revFact: revFact,
+          grossPlan: grossPlan,
+          grossFact: grossFact,
+          marginPlan: 44,
+          marginFact: Math.round(marginSum / n),
+          illiquid30120Fact: illMid120FactSum,
+          illiquid120PlusFact: ill120PlusFactSum,
+          liquidStockPlan: liquidPlanSum,
+          liquidStockFact: liquidFactSum,
+          availNea: Math.round(availNeaSum / n),
+          availProduct: Math.round(availProductSum / n),
+          isTotal: true
+        };
+      }
+
+      function aggregateLeadMetricsTotal(rows) {
+        if (!rows.length) return null;
+        var revPlan = 0;
+        var revFact = 0;
+        var grossPlan = 0;
+        var grossFact = 0;
+        var availPlanSum = 0;
+        var availFactSum = 0;
+        var sellPlanSum = 0;
+        var sellFactSum = 0;
+        rows.forEach(function (r) {
+          revPlan += r.revPlan;
+          revFact += r.revFact;
+          grossPlan += r.grossPlan;
+          grossFact += r.grossFact;
+          availPlanSum += r.availPlan;
+          availFactSum += r.availFact;
+          sellPlanSum += r.sellPlan;
+          sellFactSum += r.sellFact;
+        });
+        var n = rows.length;
+        return {
+          store: 'Итого',
+          revPlan: revPlan,
+          revFact: revFact,
+          grossPlan: grossPlan,
+          grossFact: grossFact,
+          availPlan: Math.round(availPlanSum / n),
+          availFact: Math.round(availFactSum / n),
+          sellPlan: Math.round(sellPlanSum / n),
+          sellFact: Math.round(sellFactSum / n),
+          isTotal: true
+        };
+      }
+
+      function getMetricsStoresForRegionOnly() {
+        var regEl = document.getElementById('catFilterRegion');
+        var rv = regEl ? regEl.value : '';
+        if (rv === 'murmansk') return MURMANSK_STORES.slice();
+        if (rv === 'volgograd') return VOLGOGRAD_STORES_LIST.slice();
+        return mergeStoreListsUnique(VOLGOGRAD_STORES_LIST, MURMANSK_STORES);
+      }
+
+      function getStoreFilterMode() {
+        var storeF = document.getElementById('catFilterStore');
+        if (!storeF) return 'all';
+        var v = storeF.value;
+        if (v === '' || v === CAT_FILTER_STORE_ALL) return 'all';
+        return 'one';
+      }
+
+      function getMetricsDetailStores() {
+        var stores = getMetricsStoresForRegionOnly();
+        var storeF = document.getElementById('catFilterStore');
+        if (!storeF || !storeF.value || storeF.value === CAT_FILTER_STORE_ALL) return stores;
+        return stores.filter(function (s) { return s === storeF.value; });
+      }
+
+      function buildMetricsRowsForStores(stores) {
+        var cat = metricsCategoryLabel();
+        if (isCategoryLeadMetrics()) {
+          return stores.map(function (s, i) {
+            return buildLeadMetricsDataRow(activeMonth, s, i, cat);
+          });
+        }
+        return stores.map(function (s, i) {
+          return buildMetricsDataRow(activeMonth, s, i, cat);
+        });
+      }
+
+      function leadKpiCardHtml(title, planHtml, factHtml, pct) {
+        var pctCls = metricsPctCellClass(pct);
+        return (
+          '<article class="cat-dash__lead-kpi-card" role="listitem">' +
+          '<h4 class="cat-dash__lead-kpi-card__title">' +
+          title +
+          '</h4>' +
+          '<ul class="cat-dash__lead-kpi-card__stats">' +
+          '<li><span class="muted">План</span> ' +
+          planHtml +
+          '</li>' +
+          '<li><span class="muted">Факт</span> ' +
+          factHtml +
+          '</li>' +
+          '<li><span class="muted">% выполнения</span> ' +
+          '<span class="cat-dash__lead-kpi-pct ' +
+          pctCls +
+          '">' +
+          pct +
+          '%</span></li>' +
+          '</ul>' +
+          '</article>'
+        );
+      }
+
+      function renderLeadMetricsKpiBlocks(agg) {
+        var el = document.getElementById('catMetricsSummaryKpis');
+        if (!el) return;
+        if (!isCategoryLeadMetrics()) {
+          el.hidden = true;
+          el.innerHTML = '';
+          return;
+        }
+        if (!agg) {
+          el.hidden = true;
+          el.innerHTML = '';
+          return;
+        }
+        var pRev = metricsExecPct(agg.revPlan, agg.revFact);
+        var pGr = metricsExecPct(agg.grossPlan, agg.grossFact);
+        var pAv = metricsExecPct(agg.availPlan, agg.availFact);
+        var pSl = metricsExecPct(agg.sellPlan, agg.sellFact);
+        el.hidden = false;
+        el.innerHTML =
+          '<div class="cat-dash__lead-kpi-grid" role="list">' +
+          leadKpiCardHtml(
+            'Выручка',
+            formatMetricsInt(agg.revPlan) + '\u00a0₽',
+            formatMetricsInt(agg.revFact) + '\u00a0₽',
+            pRev
+          ) +
+          leadKpiCardHtml(
+            'Валовая прибыль',
+            formatMetricsInt(agg.grossPlan) + '\u00a0₽',
+            formatMetricsInt(agg.grossFact) + '\u00a0₽',
+            pGr
+          ) +
+          leadKpiCardHtml(
+            'Доступность товара',
+            agg.availPlan + '%',
+            agg.availFact + '%',
+            pAv
+          ) +
+          leadKpiCardHtml(
+            'Индекс продавцов',
+            agg.sellPlan + '%',
+            agg.sellFact + '%',
+            pSl
+          ) +
+          '</div>';
+      }
+
+      function renderCmMetricsKpiBlocks(agg) {
+        var el = document.getElementById('catMetricsSummaryKpis');
+        if (!el) return;
+        if (isCategoryLeadMetrics()) {
+          el.hidden = true;
+          el.innerHTML = '';
+          return;
+        }
+        if (!agg) {
+          el.hidden = true;
+          el.innerHTML = '';
+          return;
+        }
+        var pRev = metricsExecPct(agg.revPlan, agg.revFact);
+        var pMargin = metricsExecPct(agg.marginPlan, agg.marginFact);
+        var pGr = metricsExecPct(agg.grossPlan, agg.grossFact);
+        var pLiq = metricsExecPct(agg.liquidStockPlan, agg.liquidStockFact);
+        el.hidden = false;
+        el.innerHTML =
+          '<div class="cat-dash__lead-kpi-grid" role="list">' +
+          leadKpiCardHtml(
+            'Выручка',
+            formatMetricsInt(agg.revPlan) + '\u00a0₽',
+            formatMetricsInt(agg.revFact) + '\u00a0₽',
+            pRev
+          ) +
+          leadKpiCardHtml(
+            'Маржинальность',
+            agg.marginPlan + '%',
+            agg.marginFact + '%',
+            pMargin
+          ) +
+          leadKpiCardHtml(
+            'Валовая прибыль',
+            formatMetricsInt(agg.grossPlan) + '\u00a0₽',
+            formatMetricsInt(agg.grossFact) + '\u00a0₽',
+            pGr
+          ) +
+          leadKpiCardHtml(
+            'Ликвидные товарные запасы',
+            formatMetricsInt(agg.liquidStockPlan) + '\u00a0₽',
+            formatMetricsInt(agg.liquidStockFact) + '\u00a0₽',
+            pLiq
+          ) +
+          '</div>';
+      }
+
+      function renderMetricsTable() {
+        closeMetricsDrilldown();
+        var tbody = document.getElementById('catMetricsTableBody');
+        if (!tbody) return;
+        var isLead = isCategoryLeadMetrics();
+        var tableSection = document.getElementById('catMetricsDataTableSection');
+        renderMetricsThead(isLead);
+        var titleEl = document.getElementById('catMetricsCategoryTitle');
+        if (titleEl) titleEl.textContent = metricsCategoryLabel();
+        var mode = getStoreFilterMode();
+        var kpiRows = buildMetricsRowsForStores(getMetricsDetailStores());
+        if (isLead) {
+          renderCmMetricsKpiBlocks(null);
+          renderLeadMetricsKpiBlocks(aggregateLeadMetricsTotal(kpiRows));
+        } else {
+          renderLeadMetricsKpiBlocks(null);
+          renderCmMetricsKpiBlocks(aggregateCmMetricsTotal(kpiRows));
+        }
+        if (tableSection) tableSection.hidden = mode !== 'all';
+        if (mode !== 'all') {
+          tbody.innerHTML = '';
+          return;
+        }
+
+        var dataRows = buildMetricsRowsForStores(getMetricsDetailStores());
+        var total = isLead ? aggregateLeadMetricsTotal(dataRows) : aggregateCmMetricsTotal(dataRows);
+        var allRows = total ? dataRows.concat([total]) : dataRows;
+        if (isLead) {
+          tbody.innerHTML = allRows
+            .map(function (r) {
+              var trCls = r.isTotal ? ' class="cat-dash__metrics-row-total"' : '';
+              var pRev = metricsExecPct(r.revPlan, r.revFact);
+              var pGr = metricsExecPct(r.grossPlan, r.grossFact);
+              var pAv = metricsExecPct(r.availPlan, r.availFact);
+              var pSl = metricsExecPct(r.sellPlan, r.sellFact);
+              return (
+                '<tr' +
+                trCls +
+                '>' +
+                '<td class="cat-dash__td-strong">' +
+                r.store +
+                '</td>' +
+                '<td>' +
+                formatMetricsInt(r.revPlan) +
+                '</td>' +
+                metricsRevFactCellHtml(r) +
+                '<td class="' +
+                metricsPctCellClass(pRev) +
+                '">' +
+                pRev +
+                '%</td>' +
+                '<td>' +
+                formatMetricsInt(r.grossPlan) +
+                '</td>' +
+                '<td>' +
+                formatMetricsInt(r.grossFact) +
+                '</td>' +
+                '<td class="' +
+                metricsPctCellClass(pGr) +
+                '">' +
+                pGr +
+                '%</td>' +
+                '<td>' +
+                r.availPlan +
+                '%</td>' +
+                '<td>' +
+                r.availFact +
+                '%</td>' +
+                '<td class="' +
+                metricsPctCellClass(pAv) +
+                '">' +
+                pAv +
+                '%</td>' +
+                '<td>' +
+                r.sellPlan +
+                '%</td>' +
+                '<td>' +
+                r.sellFact +
+                '%</td>' +
+                '<td class="' +
+                metricsPctCellClass(pSl) +
+                '">' +
+                pSl +
+                '%</td>' +
+                '</tr>'
+              );
+            })
+            .join('');
+        } else {
+          tbody.innerHTML = allRows
+            .map(function (r) {
+              return htmlCmMetricsDataRow(r, r.store, true);
+            })
+            .join('');
+        }
+      }
+
+      function refreshFilteredPanels() {
+        renderCatDashboard();
+        renderMetricsTable();
+        renderBudgets();
+        renderRequests();
+      }
+
+      function initFilterBar() {
+        var lists = planRowDimensionLists();
+        fillSelectFromList('catFilterCategory', lists.categories, 'Все категории');
+        updateStoreSelectOptions();
+        var monthSel = document.getElementById('catFilterMonth');
+        if (monthSel) {
+          monthSel.value = activeMonth;
+          monthSel.addEventListener('change', function () {
+            activeMonth = monthSel.value;
+            refreshFilteredPanels();
+          });
+        }
+        ['catFilterCategory', 'catFilterStore', 'catFilterPeriod'].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.addEventListener('change', refreshFilteredPanels);
+        });
+        var regEl = document.getElementById('catFilterRegion');
+        if (regEl) {
+          regEl.addEventListener('change', function () {
+            updateStoreSelectOptions();
+            refreshFilteredPanels();
+          });
+        }
+        applyCategoryManagerScope();
       }
 
       function renderCatDashboard() {
-        var v = getDashView();
-        if (!v) return;
-        document.getElementById('catDashKicker').textContent = v.scopeKicker;
-        renderKpis(document.getElementById('catDashKpis'), v.kpis);
-        renderPlanTable(document.getElementById('catDashTableBody'), v.rows);
-        renderAlerts(document.getElementById('catDashAlerts'), v.alerts);
-      }
-
-      function setMonthStripUI() {
-        var strip = document.getElementById('catMonthStrip');
-        if (!strip) return;
-        strip.querySelectorAll('[data-cat-month]').forEach(function (b) {
-          var on = b.getAttribute('data-cat-month') === activeMonth;
-          b.classList.toggle('btn--primary', on);
-          b.classList.toggle('btn--secondary', !on);
-          b.setAttribute('aria-pressed', on ? 'true' : 'false');
-        });
-      }
-
-      function initMonthStrip() {
-        var strip = document.getElementById('catMonthStrip');
-        if (!strip) return;
-        strip.querySelectorAll('[data-cat-month]').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            activeMonth = btn.getAttribute('data-cat-month');
-            setMonthStripUI();
-            renderCatDashboard();
-            renderBudgets();
-            renderRequests();
-          });
-        });
-        setMonthStripUI();
+        renderCatDashboardDataStamp();
       }
 
       function renderBudgets() {
@@ -414,7 +1131,11 @@
         if (sumTitle) sumTitle.textContent = 'Сводка · ' + MONTH_META[activeMonth].label;
         if (!rowsEl || !bd || !bd.rows) return;
 
-        rowsEl.innerHTML = bd.rows
+        var budgetRows = bd.rows.slice();
+        var catF = document.getElementById('catFilterCategory');
+        if (catF && catF.value) budgetRows = budgetRows.filter(function (r) { return r.category === catF.value; });
+
+        rowsEl.innerHTML = budgetRows
           .map(function (r) {
             return (
               '<div class="cat-dash__budget-row">' +
@@ -465,7 +1186,24 @@
         var statsEl = document.getElementById('catRequestStats');
         var rk = document.getElementById('catRequestKicker');
         if (rk) rk.textContent = MONTH_META[activeMonth].label + ' · заявки от торговых точек';
-        var data = REQUEST_BY_MONTH[activeMonth] || [];
+        var regR = document.getElementById('catFilterRegion');
+        var rvR = regR ? regR.value : '';
+        var data;
+        if (rvR === 'murmansk') {
+          data = (MURMANSK_REQUEST_BY_MONTH[activeMonth] || []).slice();
+        } else {
+          data = (REQUEST_BY_MONTH[activeMonth] || []).slice();
+          if (rvR === 'volgograd') {
+            var vgR = volgogradStoreSet();
+            data = data.filter(function (r) { return vgR[r.store]; });
+          } else if (!rvR) {
+            data = data.concat((MURMANSK_REQUEST_BY_MONTH[activeMonth] || []).slice());
+          }
+        }
+        var storeF = document.getElementById('catFilterStore');
+        if (storeF && storeF.value && storeF.value !== CAT_FILTER_STORE_ALL) {
+          data = data.filter(function (r) { return r.store === storeF.value; });
+        }
         if (!listEl) return;
 
         listEl.innerHTML = data.map(function (r) {
@@ -517,6 +1255,7 @@
 
       var map = {
         dashboard: 'panel-dashboard',
+        metrics: 'panel-metrics',
         budgets: 'panel-budgets',
         requests: 'panel-requests',
         messages: 'panel-messages'
@@ -524,13 +1263,13 @@
 
       var MESSAGE_DATA = [
         {
-          from: 'Склад · Мурманск',
-          preview: 'Поступление по одноразовым эл. сигаретам — можно резервировать под ТТ Апатиты',
+          from: 'Склад · Волгоград',
+          preview: 'Поступление по одноразовым эл. сигаретам — можно резервировать под точку «Волгоград Волжский Ленина»',
           time: 'Сегодня, 11:40',
           unread: true
         },
         {
-          from: 'Управляющий · ТТ Кандалакша',
+          from: 'Управляющий · Волгоград, Рокоссовского 107',
           preview: 'Нужно согласовать поставку жидкостей на следующую неделю',
           time: 'Вчера, 16:05',
           unread: true
@@ -602,8 +1341,11 @@
         });
       });
 
-      initMonthStrip();
+      applyTopbarPersona();
+      initFilterBar();
+      initMetricsRevDrillUi();
       renderCatDashboard();
+      renderMetricsTable();
       renderBudgets();
       renderRequests();
       renderMessages();

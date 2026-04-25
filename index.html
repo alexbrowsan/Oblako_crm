@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CRM — вход</title>
+  <title>ОБЛАКО ERP — вход</title>
   <link rel="stylesheet" href="crm-proto.css" />
 </head>
 <body class="page-login">
   <main class="card">
-    <h1 class="card__title">CRM</h1>
+    <h1 class="card__title">ОБЛАКО ERP</h1>
     <p class="card__subtitle">Вход в систему</p>
     <form id="loginForm" class="form" novalidate>
       <label class="field">
@@ -17,7 +17,8 @@
           <option value="seller" selected>Продавец</option>
           <option value="manager">Управляющий</option>
           <option value="hr">HR</option>
-          <option value="category">Категорийный менеджер</option>
+          <option value="category_lead">Алина Геранина</option>
+          <option value="category_manager">Категорийный менеджер</option>
         </select>
       </label>
       <label class="field">
@@ -42,7 +43,12 @@
         window.location.href = 'manager-dashboard.html';
       } else if (role === 'hr') {
         window.location.href = 'hr-dashboard.html';
-      } else if (role === 'category') {
+      } else if (role === 'category_lead' || role === 'category_manager') {
+        if (role === 'category_manager') {
+          sessionStorage.setItem('crm_managed_category', 'Жевательный табак');
+        } else {
+          sessionStorage.removeItem('crm_managed_category');
+        }
         window.location.href = 'category-manager-dashboard.html';
       } else {
         window.location.href = 'seller-dashboard.html';
