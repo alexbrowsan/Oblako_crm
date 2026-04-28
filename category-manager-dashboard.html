@@ -16,6 +16,7 @@
 
   <nav class="tabs" role="tablist" aria-label="Разделы категорийного менеджера">
     <button type="button" class="tabs__btn is-active" role="tab" aria-selected="true" data-tab="dashboard">Дашборд</button>
+    <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="plan">План</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="metrics">Показатели</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="budgets">Бюджеты</button>
     <button type="button" class="tabs__btn" role="tab" aria-selected="false" data-tab="requests">Заявки</button>
@@ -100,6 +101,33 @@
       </div>
     </section>
 
+    <section class="tab-panel cat-dash" id="panel-plan" role="tabpanel" hidden>
+      <div class="manager-plan-entry cat-manager-plan-entry" id="catManagerPlanEntry">
+        <h2 class="manager-plan-entry__title">План</h2>
+        <div class="manager-plan-entry__toolbar">
+          <div class="manager-plan-entry__field">
+            <label class="manager-plan-entry__label" for="catPlanEntryMonth">Месяц</label>
+            <select id="catPlanEntryMonth" class="input manager-plan-entry__select" aria-label="Месяц планирования"></select>
+          </div>
+          <p class="manager-plan-entry__saved" id="catPlanEntrySavedAt"></p>
+          <div class="manager-plan-entry__actions">
+            <button type="button" class="btn btn--primary" id="catPlanEntrySave">Сохранить план</button>
+            <button type="button" class="btn btn--secondary" id="catPlanEntryCopyPrev" title="Копирует цифры с предыдущего месяца">Скопировать с прошлого месяца</button>
+          </div>
+        </div>
+        <p class="manager-plan-entry__status" id="catPlanEntryStatus" aria-live="polite" role="status"></p>
+        <article class="dash-card manager-plan-entry__table-card">
+          <h3 class="seller-plan-card__title">Плановые значения по точкам</h3>
+          <div class="manager-plan-entry__scroll" role="region" aria-label="Таблица планов категории">
+            <table class="manager-plan-entry__table" id="catPlanEntryTable">
+              <thead id="catPlanMatrixHead"></thead>
+              <tbody id="catPlanMatrixBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="tab-panel cat-dash" id="panel-metrics" role="tabpanel" hidden>
       <div class="cat-dash__plan-layout">
         <article class="dash-card cat-dash__plan-main">
@@ -179,11 +207,13 @@
   </main>
 
   <script src="crm-tt-stores.js"></script>
+  <script src="crm-category-manager-plan.js"></script>
   <script src="crm-cat-dashboard-metrics.js"></script>
   <script>
     (function () {
       var map = {
         dashboard: 'panel-dashboard',
+        plan: 'panel-plan',
         metrics: 'panel-metrics',
         budgets: 'panel-budgets',
         requests: 'panel-requests',
@@ -211,7 +241,8 @@
             }
           });
           var monthStrip = document.getElementById('catMonthStrip');
-          if (monthStrip) monthStrip.hidden = key === 'messages';
+          if (monthStrip)
+            monthStrip.hidden = key === 'messages' || key === 'plan';
         });
       });
     })();
